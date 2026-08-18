@@ -1,62 +1,63 @@
 import { useState } from 'react'
-import { NavLink } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
+import { useNavigation } from '../context/NavigationContext'
 
 const navItems = [
-  { to: '/', label: 'Home' },
-  { to: '/about', label: 'About' },
-  { to: '/skills', label: 'Skills' },
-  { to: '/experience', label: 'Experience' },
-  { to: '/work', label: 'Work' },
-  { to: '/blog', label: 'Blog' },
-  { to: '/contact', label: 'Contact' },
+  { id: 'home', label: 'Home' },
+  { id: 'about', label: 'About' },
+  { id: 'skills', label: 'Skills' },
+  { id: 'experience', label: 'Experience' },
+  { id: 'work', label: 'Work' },
+  { id: 'blog', label: 'Blog' },
+  { id: 'contact', label: 'Contact' },
 ]
 
-function SidebarContent() {
+function SidebarContent({ onNavigate }) {
+  const { activeSection, scrollToSection } = useNavigation()
+
+  const handleClick = (id) => {
+    scrollToSection(id)
+    onNavigate?.()
+  }
+
   return (
-    <div className="relative h-full">
+    <div className="relative h-full flex flex-col">
       <div className="px-5 pt-8 pb-4">
-        <h1 className="font-heading text-4xl text-pink-hot mb-1" style={{ fontFamily: 'var(--font-heading)' }}>
-          RIKSHA
-        </h1>
-        <p className="text-xs text-gray" style={{ fontFamily: 'var(--font-mono)' }}>
-          sketchbook
-        </p>
+        <button
+          type="button"
+          onClick={() => handleClick('home')}
+          className="text-left w-full cursor-pointer"
+        >
+          <h1 className="font-heading text-4xl text-pink-hot mb-1" style={{ fontFamily: 'var(--font-heading)' }}>
+            RIKSHA
+          </h1>
+          <p className="text-xs text-gray" style={{ fontFamily: 'var(--font-mono)' }}>
+            sketchbook
+          </p>
+        </button>
       </div>
 
-      <nav className="px-3 flex flex-col gap-1">
-        {navItems.map((item) => (
-          <NavLink
-            key={item.to}
-            to={item.to}
-            end={item.to === '/'}
-            className={({ isActive }) =>
-              `block px-3 py-2 rounded-md text-lg transition-colors relative ${
+      <nav className="px-3 flex flex-col gap-1 flex-1">
+        {navItems.map((item) => {
+          const isActive = activeSection === item.id
+          return (
+            <button
+              key={item.id}
+              type="button"
+              onClick={() => handleClick(item.id)}
+              className={`block w-full text-left px-3 py-2.5 rounded-md text-lg transition-all relative cursor-pointer ${
                 isActive
-                  ? 'text-pink-hot font-bold'
-                  : 'text-white hover:text-pink-neon'
-              }`
-            }
-            style={{ fontFamily: 'var(--font-heading)', fontSize: '1.25rem' }}
-          >
-            {({ isActive }) => (
-              <>
-                {item.label}
-                {isActive && (
-                  <span
-                    className="absolute bottom-0 left-3 right-3 h-[3px]"
-                    style={{
-                      background: 'repeating-linear-gradient(90deg, #FF8A80 0px, #FF8A80 4px, transparent 4px, transparent 8px)',
-                    }}
-                  />
-                )}
-              </>
-            )}
-          </NavLink>
-        ))}
+                  ? 'text-pink-hot font-bold nav-link-active'
+                  : 'text-white hover:text-pink-neon hover:translate-x-0.5'
+              }`}
+              style={{ fontFamily: 'var(--font-heading)', fontSize: '1.25rem' }}
+            >
+              {item.label}
+            </button>
+          )
+        })}
       </nav>
 
-      {/* Tape strips */}
       <div
         className="tape"
         style={{
@@ -96,25 +97,24 @@ export default function Sidebar() {
 
   return (
     <>
-      {/* Desktop sidebar */}
-      <aside
-        className="hidden md:block fixed top-0 left-0 h-screen w-60 bg-bg-surface z-40"
-        style={{
-          transform: 'rotate(-3deg)',
-          transformOrigin: 'top center',
-          border: '2px solid var(--color-gray)',
-          filter: 'url(#sketchy)',
-          marginTop: '-8px',
-          marginLeft: '-12px',
-        }}
-      >
-        <SidebarContent />
+      {/* Desktop sidebar — sticky, takes layout space */}
+      <aside className="hidden md:block sticky top-0 h-screen w-[260px] shrink-0 z-30 self-start pt-2 pl-2">
+        <div
+          className="h-[calc(100vh-1rem)] bg-bg-surface sketch-border overflow-hidden"
+          style={{
+            transform: 'rotate(-2deg)',
+            transformOrigin: 'top center',
+            boxShadow: 'var(--shadow-sidebar)',
+          }}
+        >
+          <SidebarContent />
+        </div>
       </aside>
 
       {/* Mobile hamburger */}
       <button
-        className="md:hidden fixed top-4 left-4 z-50 w-10 h-10 flex flex-col items-center justify-center gap-1.5 bg-bg-surface border-2 border-gray rounded-md"
-        style={{ filter: 'url(#sketchy)' }}
+        className="md:hidden fixed top-4 left-4 z-50 w-11 h-11 flex flex-col items-center justify-center gap-1.5 bg-bg-surface sketch-border"
+        style={{ boxShadow: 'var(--shadow-paper)' }}
         onClick={() => setMobileOpen(!mobileOpen)}
         aria-label="Toggle menu"
       >
@@ -134,11 +134,10 @@ export default function Sidebar() {
           >
             <div className="absolute inset-0 bg-black/40" onClick={() => setMobileOpen(false)} />
             <motion.aside
-              className="absolute top-0 left-0 h-full w-72 bg-bg-surface overflow-y-auto"
+              className="absolute top-0 left-0 h-full w-72 bg-bg-surface overflow-y-auto sketch-border"
               style={{
-                border: '2px solid var(--color-gray)',
-                filter: 'url(#sketchy)',
-                transform: 'rotate(-2deg)',
+                boxShadow: 'var(--shadow-sidebar)',
+                transform: 'rotate(-1.5deg)',
                 transformOrigin: 'top center',
               }}
               initial={{ x: '-100%' }}
@@ -146,7 +145,7 @@ export default function Sidebar() {
               exit={{ x: '-100%' }}
               transition={{ type: 'spring', damping: 25, stiffness: 200 }}
             >
-              <SidebarContent />
+              <SidebarContent onNavigate={() => setMobileOpen(false)} />
             </motion.aside>
           </motion.div>
         )}

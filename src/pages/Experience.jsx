@@ -1,21 +1,17 @@
 import { motion } from 'framer-motion'
 import experience from '../data/experience.json'
-import PageTransition from '../components/PageTransition'
 import Doodle from '../components/Doodle'
 
-const tagColors = ['#A5D6A7', '#82B1FF', '#CE93D8', '#FFD180', '#FFE57F', '#FF8A80']
+const tagColors = ['#6BAB7D', '#4A90C4', '#9B7BB8', '#F0A87A', '#E8B84A', '#E85D4C']
 
 export default function Experience() {
   return (
-    <PageTransition>
-      <div className="min-h-screen px-4 py-16 max-w-4xl mx-auto">
-        {/* Doodle decorations */}
-        <div className="absolute top-20 right-[10%]"><Doodle type="arrowDown" color="#FF8A80" size={28} rotation={15} /></div>
-        <div className="absolute top-40 left-[5%]"><Doodle type="star" color="#FFE57F" size={24} rotation={-10} /></div>
+    <section id="experience" className="scroll-section min-h-screen px-4 py-16 max-w-4xl mx-auto relative">
+        <div className="absolute top-20 right-[10%] opacity-70"><Doodle type="arrowDown" color="#E85D4C" size={28} rotation={15} /></div>
+        <div className="absolute top-40 left-[5%] opacity-70"><Doodle type="star" color="#E8B84A" size={24} rotation={-10} /></div>
 
         <motion.h2
-          className="text-5xl md:text-6xl text-pink-neon text-center mb-4"
-          style={{ fontFamily: 'var(--font-heading)' }}
+          className="page-title"
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
         >
@@ -27,15 +23,13 @@ export default function Experience() {
           animate={{ scaleX: 1 }}
           transition={{ delay: 0.3, duration: 0.5 }}
         >
-          <Doodle type="squiggle" color="#FFD180" size={160} />
+          <Doodle type="squiggle" color="#F0A87A" size={160} />
         </motion.div>
 
-        {/* Timeline */}
         <div className="relative">
-          {/* Vertical line */}
           <div
             className="absolute left-6 md:left-8 top-0 bottom-0 w-0.5"
-            style={{ background: 'repeating-linear-gradient(180deg, var(--color-gray) 0px, var(--color-gray) 6px, transparent 6px, transparent 12px)' }}
+            style={{ background: 'repeating-linear-gradient(180deg, var(--color-line) 0px, var(--color-line) 6px, transparent 6px, transparent 12px)' }}
           />
 
           <div className="space-y-8">
@@ -48,33 +42,26 @@ export default function Experience() {
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.15, duration: 0.5 }}
               >
-                {/* Timeline dot */}
                 <div
-                  className="absolute left-4 md:left-6 w-5 h-5 rounded-full bg-bg-surface"
+                  className="absolute left-4 md:left-6 w-5 h-5 rounded-full bg-bg-surface sketch-border"
                   style={{
-                    border: `3px solid ${item.type === 'work' ? '#A5D6A7' : '#82B1FF'}`,
-                    filter: 'url(#sketchy)',
+                    borderColor: item.type === 'work' ? '#6BAB7D' : '#4A90C4',
+                    borderWidth: '3px',
                     top: '8px',
                   }}
                 />
 
-                {/* Card */}
                 <div
-                  className="bg-bg-surface p-5"
-                  style={{
-                    border: '2px solid var(--color-gray)',
-                    filter: 'url(#sketchy)',
-                    transform: `rotate(${i % 2 === 0 ? '-1' : '1'}deg)`,
-                  }}
+                  className="sketch-card p-5"
+                  style={{ transform: `rotate(${i % 2 === 0 ? '-0.75' : '0.75'}deg)` }}
                 >
                   <div className="flex flex-wrap items-center gap-2 mb-2">
                     <span
-                      className="text-xs px-2 py-0.5 rounded-full"
+                      className="tag-pill"
                       style={{
-                        fontFamily: 'var(--font-mono)',
-                        backgroundColor: item.type === 'work' ? '#A5D6A720' : '#82B1FF20',
-                        color: item.type === 'work' ? '#4a7c59' : '#4a6fa5',
-                        border: `1px solid ${item.type === 'work' ? '#A5D6A7' : '#82B1FF'}`,
+                        backgroundColor: item.type === 'work' ? '#6BAB7D18' : '#4A90C418',
+                        color: item.type === 'work' ? '#4a7c59' : '#3d6a8a',
+                        borderColor: item.type === 'work' ? '#6BAB7D' : '#4A90C4',
                       }}
                     >
                       {item.type}
@@ -84,31 +71,24 @@ export default function Experience() {
                     </span>
                   </div>
 
-                  <h3
-                    className="text-2xl text-white mb-1"
-                    style={{ fontFamily: 'var(--font-heading)' }}
-                  >
+                  <h3 className="text-2xl text-white mb-1" style={{ fontFamily: 'var(--font-heading)' }}>
                     {item.title}
                   </h3>
                   <p className="text-sm text-pink-hot mb-2" style={{ fontFamily: 'var(--font-body)' }}>
                     {item.company}
                   </p>
-                  <p className="text-white/80 mb-3" style={{ fontFamily: 'var(--font-body)' }}>
+                  <p className="text-white/80 mb-3 leading-relaxed" style={{ fontFamily: 'var(--font-body)' }}>
                     {item.description}
                   </p>
 
-                  {/* Tags */}
                   <div className="flex flex-wrap gap-2">
                     {item.tags?.map((tag, j) => (
                       <span
                         key={tag}
-                        className="text-xs px-2 py-0.5"
+                        className="tag-pill"
                         style={{
-                          fontFamily: 'var(--font-mono)',
-                          backgroundColor: `${tagColors[j % tagColors.length]}20`,
-                          color: 'var(--color-white)',
-                          border: `1px solid ${tagColors[j % tagColors.length]}`,
-                          borderRadius: '4px',
+                          backgroundColor: `${tagColors[j % tagColors.length]}18`,
+                          borderColor: tagColors[j % tagColors.length],
                         }}
                       >
                         {tag}
@@ -117,17 +97,15 @@ export default function Experience() {
                   </div>
                 </div>
 
-                {/* Arrow doodle between entries */}
                 {i < experience.length - 1 && (
-                  <div className="flex justify-start ml-4 mt-2">
-                    <Doodle type="arrowDown" color="#9E9E9E" size={20} rotation={i % 2 === 0 ? 5 : -5} />
+                  <div className="flex justify-start ml-4 mt-2 opacity-50">
+                    <Doodle type="arrowDown" color="#8A7F72" size={20} rotation={i % 2 === 0 ? 5 : -5} />
                   </div>
                 )}
               </motion.div>
             ))}
           </div>
         </div>
-      </div>
-    </PageTransition>
+    </section>
   )
 }

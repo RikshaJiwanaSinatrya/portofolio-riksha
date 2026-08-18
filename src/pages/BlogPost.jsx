@@ -14,7 +14,7 @@ const postMap = {
   'getting-started-with-tailwind-v4': { ...post3.meta, content: post3.content },
 }
 
-const tagColors = ['#A5D6A7', '#82B1FF', '#CE93D8', '#FFD180']
+const tagColors = ['#6BAB7D', '#4A90C4', '#9B7BB8', '#F0A87A']
 
 export default function BlogPost() {
   const { slug } = useParams()
@@ -46,10 +46,11 @@ export default function BlogPost() {
       <div className="min-h-screen px-4 py-16 max-w-3xl mx-auto">
         <Link
           to="/blog"
-          className="text-lg text-pink-hot hover:text-pink-neon inline-block mb-8"
+          className="text-lg text-pink-hot hover:text-pink-neon inline-flex items-center gap-1 mb-8 transition-colors"
           style={{ fontFamily: 'var(--font-heading)' }}
         >
-          &larr; Back to blog
+          <Doodle type="arrowRight" color="currentColor" size={16} rotation={180} />
+          Back to blog
         </Link>
 
         <motion.div
@@ -57,26 +58,15 @@ export default function BlogPost() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
         >
-          {/* Header */}
-          <div
-            className="bg-bg-surface p-6 mb-8"
-            style={{
-              border: '2px solid var(--color-gray)',
-              filter: 'url(#sketchy)',
-              transform: 'rotate(-0.5deg)',
-            }}
-          >
-            <h1
-              className="text-3xl md:text-4xl text-pink-neon mb-3"
-              style={{ fontFamily: 'var(--font-heading)' }}
-            >
+          <div className="sketch-card p-6 mb-8" style={{ transform: 'rotate(-0.5deg)' }}>
+            <h1 className="text-3xl md:text-4xl text-pink-neon mb-3" style={{ fontFamily: 'var(--font-heading)' }}>
               {post.title}
             </h1>
             <div className="flex flex-wrap items-center gap-3 mb-4">
               <span className="text-sm text-gray" style={{ fontFamily: 'var(--font-mono)' }}>
                 {post.date}
               </span>
-              <span className="text-sm text-gray" style={{ fontFamily: 'var(--font-body)' }}>
+              <span className="text-sm text-gray/70" style={{ fontFamily: 'var(--font-body)' }}>
                 ~ {post.readTime}
               </span>
             </div>
@@ -84,13 +74,10 @@ export default function BlogPost() {
               {post.tags?.map((tag, j) => (
                 <span
                   key={tag}
-                  className="text-xs px-2 py-0.5"
+                  className="tag-pill"
                   style={{
-                    fontFamily: 'var(--font-mono)',
-                    backgroundColor: `${tagColors[j % tagColors.length]}20`,
-                    color: 'var(--color-white)',
-                    border: `1px solid ${tagColors[j % tagColors.length]}`,
-                    borderRadius: '4px',
+                    backgroundColor: `${tagColors[j % tagColors.length]}18`,
+                    borderColor: tagColors[j % tagColors.length],
                   }}
                 >
                   #{tag}
@@ -99,19 +86,14 @@ export default function BlogPost() {
             </div>
           </div>
 
-          {/* Content */}
-          <div
-            className="blog-content text-lg"
-            style={{ fontFamily: 'var(--font-body)' }}
-          >
+          <div className="blog-content text-lg" style={{ fontFamily: 'var(--font-body)' }}>
             <ReactMarkdown remarkPlugins={[remarkGfm]}>{post.content}</ReactMarkdown>
           </div>
 
-          {/* Doodle at bottom */}
-          <div className="flex justify-center gap-4 mt-12">
-            <Doodle type="star" color="#FFD180" size={20} rotation={10} />
-            <Doodle type="heart" color="#FF8A80" size={20} rotation={-5} />
-            <Doodle type="star" color="#82B1FF" size={20} rotation={15} />
+          <div className="flex justify-center gap-4 mt-12 opacity-70">
+            <Doodle type="star" color="#F0A87A" size={20} rotation={10} />
+            <Doodle type="heart" color="#E85D4C" size={20} rotation={-5} />
+            <Doodle type="star" color="#4A90C4" size={20} rotation={15} />
           </div>
         </motion.div>
       </div>

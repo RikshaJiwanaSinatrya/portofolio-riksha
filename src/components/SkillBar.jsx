@@ -6,18 +6,18 @@ export default function SkillBar({ name, level, max = 100, delay = 0 }) {
   return (
     <div className="flex items-center gap-3 w-full group">
       <span
-        className="w-28 text-right shrink-0 text-sm font-semibold text-white"
+        className="w-28 text-right shrink-0 text-sm font-semibold text-white group-hover:text-pink-hot transition-colors"
         style={{ fontFamily: 'var(--font-body)' }}
       >
         {name}
       </span>
       <div
-        className="flex-1 h-5 bg-bg-surface overflow-hidden relative"
-        style={{ border: '2px solid var(--color-gray)', filter: 'url(#sketchy)' }}
+        className="flex-1 h-6 bg-bg-deep overflow-hidden relative sketch-border"
+        style={{ boxShadow: 'inset 0 1px 3px hsl(30 20% 70% / 0.2)' }}
       >
         <motion.div
-          className="h-full"
-          style={{ background: 'linear-gradient(90deg, #A5D6A7, #82B1FF, #CE93D8)' }}
+          className="h-full rounded-sm"
+          style={{ background: 'linear-gradient(90deg, #6BAB7D, #4A90C4, #9B7BB8)' }}
           initial={{ width: 0 }}
           whileInView={{ width: `${percentage}%` }}
           viewport={{ once: true }}
@@ -25,7 +25,7 @@ export default function SkillBar({ name, level, max = 100, delay = 0 }) {
         />
       </div>
       <span
-        className="w-12 shrink-0 text-sm text-gray"
+        className="w-12 shrink-0 text-sm text-gray tabular-nums"
         style={{ fontFamily: 'var(--font-mono)' }}
       >
         {level}%
