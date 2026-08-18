@@ -1,0 +1,34 @@
+[
+  {
+    "title": "Frontend Developer",
+    "company": "PT. Digital Nusantara",
+    "period": "2023 - Present",
+    "type": "work",
+    "description": "Building responsive web applications with React and modern CSS. Led the redesign of the company dashboard, improving user engagement by 40%.",
+    "rewards": ["React", "TypeScript", "Next.js", "Tailwind CSS"]
+  },
+  {
+    "title": "Junior Frontend Developer",
+    "company": "Startup XYZ",
+    "period": "2022 - 2023",
+    "type": "work",
+    "description": "Developed and maintained multiple client-facing web applications. Implemented real-time features using WebSocket and optimized performance.",
+    "rewards": ["JavaScript", "REST API", "WebSocket", "Git"]
+  },
+  {
+    "title": "Computer Science Degree",
+    "company": "Universitas Indonesia",
+    "period": "2019 - 2023",
+    "type": "education",
+    "description": "Bachelor of Computer Science with focus on software engineering and human-computer interaction.",
+    "rewards": ["Algorithms", "Data Structures", "OOP", "HCI"]
+  },
+  {
+    "title": "Frontend Bootcamp",
+    "company": "Hacktiv8",
+    "period": "2021",
+    "type": "education",
+    "description": "Intensive 3-month bootcamp covering modern frontend development with React ecosystem.",
+    "rewards": ["React", "Redux", "Node.js", "MongoDB"]
+  }
+]
