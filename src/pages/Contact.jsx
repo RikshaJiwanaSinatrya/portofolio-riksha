@@ -1,14 +1,13 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 import socials from '../data/socials.json'
-import DialogueBox from '../components/DialogueBox'
-import TypeWriter from '../components/TypeWriter'
 import PageTransition from '../components/PageTransition'
+import Doodle from '../components/Doodle'
 
 const options = [
-  { label: 'Email', value: socials.email, href: `mailto:${socials.email}` },
-  { label: 'GitHub', value: socials.github.replace('https://', ''), href: socials.github },
-  { label: 'LinkedIn', value: socials.linkedin.replace('https://', ''), href: socials.linkedin },
+  { label: 'Email', value: socials.email, href: `mailto:${socials.email}`, doodle: 'heart' },
+  { label: 'GitHub', value: socials.github.replace('https://', ''), href: socials.github, doodle: 'star' },
+  { label: 'LinkedIn', value: socials.linkedin.replace('https://', ''), href: socials.linkedin, doodle: 'circle' },
 ]
 
 export default function Contact() {
@@ -17,22 +16,34 @@ export default function Contact() {
   return (
     <PageTransition>
       <div className="min-h-screen flex items-center justify-center px-4 py-16">
+        {/* Doodle decorations */}
+        <div className="absolute top-20 left-[10%]"><Doodle type="spiral" color="#CE93D8" size={32} rotation={20} /></div>
+        <div className="absolute bottom-20 right-[15%]"><Doodle type="star" color="#FFE57F" size={28} rotation={-10} /></div>
+
         <div className="w-full max-w-xl">
-          <DialogueBox>
+          {/* Card */}
+          <div
+            className="bg-bg-surface p-8"
+            style={{
+              border: '2px solid var(--color-gray)',
+              filter: 'url(#sketchy)',
+              transform: 'rotate(-1deg)',
+            }}
+          >
             {/* Header */}
-            <div className="flex items-center gap-2 mb-4 border-b border-purple/30 pb-3">
-              <span className="font-pixel text-lg">💬</span>
-              <span className="font-pixel text-[10px] text-cyan">SEND MESSAGE</span>
+            <div className="flex items-center gap-2 mb-2 border-b-2 border-dashed border-gray pb-3">
+              <Doodle type="heart" color="#FF8A80" size={22} />
+              <span
+                className="text-3xl text-pink-neon"
+                style={{ fontFamily: 'var(--font-heading)' }}
+              >
+                Let&apos;s Talk!
+              </span>
             </div>
 
-            {/* NPC Greeting */}
-            <div className="mb-6">
-              <TypeWriter
-                text="Greetings, traveler! Want to connect? Choose your method:"
-                speed={30}
-                className="font-terminal text-xl text-lavender"
-              />
-            </div>
+            <p className="text-white/70 mb-6" style={{ fontFamily: 'var(--font-body)' }}>
+              Want to connect? Choose your method:
+            </p>
 
             {/* Contact Options */}
             <div className="space-y-3 mb-8">
@@ -42,49 +53,82 @@ export default function Contact() {
                   href={opt.href}
                   target={opt.label !== 'Email' ? '_blank' : undefined}
                   rel={opt.label !== 'Email' ? 'noopener noreferrer' : undefined}
-                  className="flex items-center gap-3 p-3 border border-transparent hover:border-cyan/30 hover:bg-cyan/5 transition-all group"
+                  className="flex items-center gap-3 p-3 border border-transparent hover:border-pink-hot/30 hover:bg-pink-hot/5 transition-all group"
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 1 + i * 0.2, duration: 0.4 }}
+                  transition={{ delay: 0.3 + i * 0.2, duration: 0.4 }}
                   onMouseEnter={() => setHovered(i)}
                   onMouseLeave={() => setHovered(null)}
                 >
-                  <span className={`font-pixel text-xs transition-colors ${hovered === i ? 'text-pink-hot' : 'text-cyan'}`}>
-                    {hovered === i ? '▶' : '▷'}
-                  </span>
-                  <span className="font-pixel text-[10px] text-white group-hover:text-cyan transition-colors">
+                  <Doodle
+                    type={opt.doodle}
+                    color={hovered === i ? '#FF8A80' : '#82B1FF'}
+                    size={18}
+                    rotation={hovered === i ? 15 : 0}
+                  />
+                  <span
+                    className="text-white group-hover:text-pink-hot transition-colors"
+                    style={{ fontFamily: 'var(--font-heading)', fontSize: '1.1rem' }}
+                  >
                     {opt.label}:
                   </span>
-                  <span className="font-terminal text-lg text-lavender group-hover:text-pink-hot transition-colors">
+                  <span
+                    className="text-gray group-hover:text-pink-hot transition-colors"
+                    style={{ fontFamily: 'var(--font-mono)', fontSize: '0.9rem' }}
+                  >
                     {opt.value}
                   </span>
                 </motion.a>
               ))}
             </div>
 
-            {/* Simple Form */}
-            <div className="border-t border-purple/30 pt-4">
-              <p className="font-pixel text-[8px] text-pink-hot mb-3">OR LEAVE A MESSAGE</p>
+            {/* Form */}
+            <div className="border-t-2 border-dashed border-gray pt-4">
+              <p className="text-lg text-pink-hot mb-3" style={{ fontFamily: 'var(--font-heading)' }}>
+                Or leave a message
+              </p>
               <form onSubmit={(e) => e.preventDefault()} className="space-y-3">
                 <input
                   type="text"
                   placeholder="Your name..."
-                  className="w-full bg-bg-deep border border-purple/50 px-3 py-2 font-terminal text-base text-white placeholder:text-gray focus:border-cyan focus:outline-none transition-colors"
+                  className="w-full bg-bg-deep px-3 py-2 text-white placeholder:text-gray focus:outline-none focus:border-pink-hot transition-colors"
+                  style={{
+                    fontFamily: 'var(--font-body)',
+                    border: '2px solid var(--color-gray)',
+                  }}
                 />
                 <textarea
                   placeholder="Your message..."
                   rows={4}
-                  className="w-full bg-bg-deep border border-purple/50 px-3 py-2 font-terminal text-base text-white placeholder:text-gray focus:border-cyan focus:outline-none transition-colors resize-none"
+                  className="w-full bg-bg-deep px-3 py-2 text-white placeholder:text-gray focus:outline-none focus:border-pink-hot transition-colors resize-none"
+                  style={{
+                    fontFamily: 'var(--font-body)',
+                    border: '2px solid var(--color-gray)',
+                  }}
                 />
                 <button
                   type="submit"
-                  className="font-pixel text-[10px] px-6 py-2 border border-cyan text-cyan bg-transparent hover:bg-cyan/10 box-glow-cyan cursor-pointer transition-all"
+                  className="px-6 py-2 text-pink-hot bg-transparent hover:bg-pink-hot/10 cursor-pointer transition-all text-lg"
+                  style={{
+                    fontFamily: 'var(--font-heading)',
+                    border: '2px solid var(--color-pink-hot)',
+                    filter: 'url(#sketchy)',
+                    transform: 'rotate(-1deg)',
+                  }}
                 >
-                  SEND
+                  Send
+                  <span className="ml-2 inline-block"><Doodle type="arrowRight" color="#FF8A80" size={16} /></span>
                 </button>
               </form>
             </div>
-          </DialogueBox>
+          </div>
+
+          {/* Doodle decorations */}
+          <div className="flex justify-center gap-4 mt-6">
+            <Doodle type="star" color="#FFD180" size={18} rotation={10} />
+            <Doodle type="circle" color="#A5D6A7" size={18} rotation={0} />
+            <Doodle type="heart" color="#FF8A80" size={18} rotation={-10} />
+          </div>
         </div>
       </div>
     </PageTransition>

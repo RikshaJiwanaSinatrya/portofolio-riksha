@@ -3,8 +3,15 @@ import { motion } from 'framer-motion'
 import skills from '../data/skills.json'
 import SkillBar from '../components/SkillBar'
 import PageTransition from '../components/PageTransition'
+import Doodle from '../components/Doodle'
 
 const categories = Object.keys(skills)
+
+const categoryColors = {
+  frontend: '#A5D6A7',
+  backend: '#82B1FF',
+  tools: '#CE93D8',
+}
 
 export default function Skills() {
   const [active, setActive] = useState(categories[0])
@@ -12,13 +19,26 @@ export default function Skills() {
   return (
     <PageTransition>
       <div className="min-h-screen px-4 py-16 max-w-4xl mx-auto">
+        {/* Doodle decorations */}
+        <div className="absolute top-20 left-[10%]"><Doodle type="star" color="#FFE57F" size={28} rotation={-20} /></div>
+        <div className="absolute top-32 right-[8%]"><Doodle type="spiral" color="#82B1FF" size={30} rotation={15} /></div>
+
         <motion.h2
-          className="font-pixel text-lg md:text-xl text-cyan glow-cyan text-center mb-12"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
+          className="text-5xl md:text-6xl text-pink-neon text-center mb-4"
+          style={{ fontFamily: 'var(--font-heading)' }}
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
         >
-          STAT SCREEN
+          Skills
         </motion.h2>
+        <motion.div
+          className="flex justify-center mb-12"
+          initial={{ scaleX: 0 }}
+          animate={{ scaleX: 1 }}
+          transition={{ delay: 0.3, duration: 0.5 }}
+        >
+          <Doodle type="squiggle" color="#A5D6A7" size={140} />
+        </motion.div>
 
         {/* Category Tabs */}
         <div className="flex flex-wrap justify-center gap-3 mb-10">
@@ -26,13 +46,17 @@ export default function Skills() {
             <button
               key={cat}
               onClick={() => setActive(cat)}
-              className={`font-pixel text-[10px] px-4 py-2 border cursor-pointer transition-all ${
-                active === cat
-                  ? 'border-cyan text-cyan bg-cyan/10 box-glow-cyan'
-                  : 'border-gray text-gray hover:border-lavender hover:text-lavender bg-transparent'
-              }`}
+              className="px-5 py-2 cursor-pointer transition-all text-lg"
+              style={{
+                fontFamily: 'var(--font-heading)',
+                border: `2px solid ${active === cat ? categoryColors[cat] : 'var(--color-gray)'}`,
+                filter: 'url(#sketchy)',
+                color: active === cat ? categoryColors[cat] : 'var(--color-gray)',
+                backgroundColor: active === cat ? `${categoryColors[cat]}15` : 'transparent',
+                transform: `rotate(${cat === active ? '-1' : '0'}deg)`,
+              }}
             >
-              {cat.toUpperCase()}
+              {cat.charAt(0).toUpperCase() + cat.slice(1)}
             </button>
           ))}
         </div>
@@ -52,18 +76,34 @@ export default function Skills() {
 
         {/* Summary */}
         <motion.div
-          className="mt-12 pixel-border bg-bg-surface/60 p-6 max-w-2xl mx-auto text-center"
+          className="mt-12 bg-bg-surface p-6 max-w-2xl mx-auto text-center"
+          style={{
+            border: '2px solid var(--color-gray)',
+            filter: 'url(#sketchy)',
+            transform: 'rotate(1deg)',
+          }}
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ delay: 0.5 }}
         >
-          <p className="font-pixel text-[8px] text-pink-hot mb-2">TOTAL SKILLS</p>
-          <p className="font-pixel text-2xl text-cyan">
+          <p className="text-lg text-pink-hot mb-1" style={{ fontFamily: 'var(--font-heading)' }}>
+            Total Skill Points
+          </p>
+          <p className="text-4xl text-pink-neon" style={{ fontFamily: 'var(--font-heading)' }}>
             {Object.values(skills).flat().reduce((sum, s) => sum + s.level, 0)}
           </p>
-          <p className="font-terminal text-sm text-lavender mt-1">combined skill points</p>
+          <p className="text-sm text-gray mt-1" style={{ fontFamily: 'var(--font-body)' }}>
+            combined across all categories
+          </p>
         </motion.div>
+
+        {/* Doodle decorations */}
+        <div className="flex justify-center gap-6 mt-8">
+          <Doodle type="star" color="#FFD180" size={20} rotation={15} />
+          <Doodle type="circle" color="#A5D6A7" size={20} rotation={0} />
+          <Doodle type="heart" color="#FF8A80" size={20} rotation={-10} />
+        </div>
       </div>
     </PageTransition>
   )

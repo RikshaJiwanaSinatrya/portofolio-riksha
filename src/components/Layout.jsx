@@ -1,20 +1,25 @@
 import { Outlet } from 'react-router-dom'
-import Navbar from './Navbar'
-import CRTOverlay from './CRTOverlay'
-import GradientMesh from './GradientMesh'
+import SketchyFilter from './SketchyFilter'
+import Sidebar from './Sidebar'
 
 export default function Layout() {
   return (
-    <div className="min-h-screen relative">
-      <GradientMesh />
-      <CRTOverlay />
-      <Navbar />
-      <main className="pt-14 relative z-10">
-        <Outlet />
-      </main>
-      <footer className="relative z-10 border-t border-purple/30 py-6 text-center">
-        <p className="font-pixel text-[10px] text-gray">&copy; 2026 Riksha. All rights reserved.</p>
-      </footer>
-    </div>
+    <>
+      <SketchyFilter />
+      <div className="flex min-h-screen">
+        <Sidebar />
+        <main className="flex-1 md:ml-60 relative z-10">
+          <div className="pt-16 md:pt-0">
+            <Outlet />
+          </div>
+          <footer
+            className="border-t-2 border-dashed border-gray py-8 text-center"
+            style={{ fontFamily: 'var(--font-heading)' }}
+          >
+            <p className="text-lg text-gray">&copy; 2026 Riksha. Made with crayons &amp; coffee.</p>
+          </footer>
+        </main>
+      </div>
+    </>
   )
 }

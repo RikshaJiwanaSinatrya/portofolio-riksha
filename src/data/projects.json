@@ -2,7 +2,6 @@
   {
     "name": "E-Commerce Platform",
     "tech": ["React", "Next.js", "Stripe", "Tailwind"],
-    "rarity": "legendary",
     "description": "Full-featured e-commerce with payment integration, admin dashboard, and real-time inventory management.",
     "link": "https://github.com/riksha/ecommerce",
     "category": "web-app"
@@ -10,7 +9,6 @@
   {
     "name": "Weather Dashboard",
     "tech": ["React", "OpenWeather API", "Chart.js"],
-    "rarity": "rare",
     "description": "Real-time weather dashboard with 7-day forecasts, interactive maps, and location-based alerts.",
     "link": "https://github.com/riksha/weather",
     "category": "web-app"
@@ -18,7 +16,6 @@
   {
     "name": "Portfolio Generator",
     "tech": ["Next.js", "MDX", "Framer Motion"],
-    "rarity": "epic",
     "description": "A markdown-powered portfolio generator with multiple themes and automatic deployment.",
     "link": "https://github.com/riksha/portfolio-gen",
     "category": "open-source"
@@ -26,7 +23,6 @@
   {
     "name": "Task Manager UI",
     "tech": ["React", "TypeScript", "Zustand"],
-    "rarity": "rare",
     "description": "Minimalist task management app with drag-and-drop, labels, and keyboard shortcuts.",
     "link": "https://github.com/riksha/taskflow",
     "category": "web-app"
@@ -34,7 +30,6 @@
   {
     "name": "Design System",
     "tech": ["React", "Storybook", "Tailwind", "Figma"],
-    "rarity": "epic",
     "description": "Comprehensive component library with 50+ accessible components and dark mode support.",
     "link": "https://github.com/riksha/design-system",
     "category": "ui-ux"
@@ -42,7 +37,6 @@
   {
     "name": "CLI Tool",
     "tech": ["Node.js", "Commander.js", "Inquirer"],
-    "rarity": "common",
     "description": "Command-line scaffolding tool for quickly setting up React projects with best practices.",
     "link": "https://github.com/riksha/cli-scaffold",
     "category": "open-source"
