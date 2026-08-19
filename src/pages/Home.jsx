@@ -7,6 +7,7 @@ import TiltCard from '../components/TiltCard'
 import MagneticButton from '../components/MagneticButton'
 import Footer from '../components/Footer'
 import Lanyard from '../components/Lanyard'
+import CircularText from '../components/CircularText'
 
 const skills = [
   { name: 'React', icon: '⚛️' },
@@ -63,7 +64,15 @@ export default function Home() {
               </MagneticButton>
             </div>
           </AnimatedSection>
-          <div className="hidden md:block h-[750px]">
+          <div className="hidden md:block h-[750px] relative">
+            <div className="absolute top-0 right-0 z-10">
+              <CircularText
+                text="FRONTEND*DEVELOPER*"
+                onHover="speedUp"
+                spinDuration={20}
+                className=""
+              />
+            </div>
             <Lanyard position={[0, 0, 13]} gravity={[0, -40, 0]} frontImage="/card-front.svg" backImage="/card-back.svg" />
           </div>
         </div>
