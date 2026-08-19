@@ -3,7 +3,6 @@ export default {
     home: 'Home',
     about: 'About',
     projects: 'Projects',
-    blog: 'Blog',
     contact: 'Contact',
   },
   hero: {
@@ -43,9 +42,6 @@ export default {
         slug: 'project-gamma',
       },
     ],
-  },
-  blog: {
-    label: 'Blog',
   },
   contact: {
     label: 'Contact',

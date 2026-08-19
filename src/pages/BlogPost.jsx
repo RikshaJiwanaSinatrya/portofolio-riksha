@@ -7,7 +7,7 @@ import contentEn from '../data/content-en'
 import { useLanguage } from '../context/LanguageContext'
 import { useState, useEffect } from 'react'
 
-function getPost(slug, language) {
+function getPost(slug) {
   const posts = {
     'project-alpha': () => import('../content/posts/project-alpha.md?raw'),
     'project-beta': () => import('../content/posts/project-beta.md?raw'),
@@ -72,7 +72,7 @@ export default function BlogPost() {
 
   return (
     <motion.div
-      className="min-h-screen px-8 md:px-12 py-12 md:py-20 md:ml-[220px] max-w-3xl"
+      className="reading-shell"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
@@ -95,12 +95,12 @@ export default function BlogPost() {
           >
             {postMeta.name}
           </h1>
-          <div className="flex items-center gap-3 text-sm" style={{ color: 'var(--text-muted)' }}>
+          <div className="flex flex-wrap items-center gap-3 text-sm" style={{ color: 'var(--text-muted)' }}>
             <span style={{ fontFamily: 'var(--font-mono)' }}>
               {estimateReadingTime(markdown || '')} min read
             </span>
             <span>·</span>
-            <div className="flex gap-2">
+            <div className="flex flex-wrap gap-2">
               {postMeta.tags.map((tag) => (
                 <span
                   key={tag}

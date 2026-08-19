@@ -8,7 +8,7 @@ export default function Footer() {
 
   return (
     <footer
-      className="py-8 px-6 md:ml-[220px]"
+      className="py-8 px-6"
       style={{ borderTop: '1px solid var(--border)' }}
     >
       <p className="text-xs text-center" style={{ color: 'var(--text-muted)' }}>

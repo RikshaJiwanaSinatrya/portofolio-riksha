@@ -33,10 +33,10 @@ export default function FloatingToggles() {
     <div
       className="fixed top-4 right-4 z-50 flex items-center gap-1 rounded-full px-3 py-1.5"
       style={{
-        background: 'rgba(13, 13, 18, 0.6)',
+        background: 'color-mix(in srgb, var(--bg-sidebar) 60%, transparent)',
         backdropFilter: 'blur(12px)',
         WebkitBackdropFilter: 'blur(12px)',
-        border: '1px solid rgba(255, 255, 255, 0.1)',
+        border: '1px solid var(--border)',
       }}
     >
       <button
@@ -50,7 +50,7 @@ export default function FloatingToggles() {
         {theme === 'dark' ? <MoonIcon /> : <SunIcon />}
       </button>
 
-      <div className="w-px h-4" style={{ background: 'rgba(255,255,255,0.1)' }} />
+      <div className="w-px h-4" style={{ background: 'var(--border)' }} aria-hidden="true" />
 
       <button
         onClick={toggleLanguage}

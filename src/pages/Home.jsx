@@ -25,7 +25,7 @@ export default function Home() {
   return (
     <div>
       {/* Hero */}
-      <section id="home" className="min-h-screen flex flex-col justify-center px-8 md:px-12 pt-20 md:pt-0">
+      <section id="home" className="hero-section">
         <AnimatedSection>
           <p className="text-sm mb-4 tracking-wide" style={{ color: 'var(--text-muted)' }}>
             {content.hero.greeting}
@@ -64,10 +64,10 @@ export default function Home() {
       </section>
 
       {/* About */}
-      <section id="about" className="py-24 md:py-32 px-8 md:px-12">
-        <AnimatedSection className="max-w-5xl mx-auto">
+      <section id="about" className="content-section">
+        <AnimatedSection className="content-shell">
           <SectionLabel>{content.about.label}</SectionLabel>
-          <div className="grid md:grid-cols-2 gap-12 md:gap-16 mt-8">
+          <div className="grid md:grid-cols-2 gap-10 md:gap-16 mt-10">
             <div>
               <p
                 className="text-2xl md:text-3xl font-light leading-snug"
@@ -85,10 +85,10 @@ export default function Home() {
       </section>
 
       {/* Skills */}
-      <section className="py-16 px-8 md:px-12">
-        <AnimatedSection className="max-w-5xl mx-auto">
+      <section className="content-section">
+        <AnimatedSection className="content-shell">
           <SectionLabel>{content.skills.label}</SectionLabel>
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-8">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 md:gap-4 mt-10">
             {skills.map((skill) => (
               <div
                 key={skill.name}
@@ -105,10 +105,10 @@ export default function Home() {
       </section>
 
       {/* Projects */}
-      <section id="projects" className="py-24 md:py-32 px-8 md:px-12">
-        <AnimatedSection className="max-w-5xl mx-auto">
+      <section id="projects" className="content-section">
+        <AnimatedSection className="content-shell">
           <SectionLabel>{content.projects.label}</SectionLabel>
-          <div className="grid md:grid-cols-2 gap-6 mt-8">
+          <div className="grid md:grid-cols-2 gap-5 md:gap-6 mt-10">
             {content.projects.items.map((project, i) => (
               <div
                 key={project.slug}
@@ -154,45 +154,9 @@ export default function Home() {
         </AnimatedSection>
       </section>
 
-      {/* Blog */}
-      <section id="blog" className="py-24 md:py-32 px-8 md:px-12">
-        <AnimatedSection className="max-w-5xl mx-auto">
-          <SectionLabel>{content.blog.label}</SectionLabel>
-          <div className="space-y-4 mt-8">
-            {content.projects.items.map((project) => (
-              <a
-                key={project.slug}
-                href={`/blog/${project.slug}`}
-                className="block glass rounded-xl p-6 transition-all duration-300 hover:border-[rgba(102,126,234,0.3)]"
-              >
-                <div className="flex items-center justify-between gap-4">
-                  <div>
-                    <h3
-                      className="text-base font-semibold mb-1"
-                      style={{ color: 'var(--text)', fontFamily: 'var(--font-display)' }}
-                    >
-                      {project.name}
-                    </h3>
-                    <p className="text-sm" style={{ color: 'var(--text-muted)' }}>
-                      {project.description}
-                    </p>
-                  </div>
-                  <span
-                    className="text-xs shrink-0"
-                    style={{ color: 'var(--text-muted)', fontFamily: 'var(--font-mono)' }}
-                  >
-                    →
-                  </span>
-                </div>
-              </a>
-            ))}
-          </div>
-        </AnimatedSection>
-      </section>
-
       {/* Contact */}
-      <section id="contact" className="py-24 md:py-32 px-8 md:px-12">
-        <AnimatedSection className="max-w-5xl mx-auto">
+      <section id="contact" className="content-section">
+        <AnimatedSection className="content-shell">
           <SectionLabel>{content.contact.label}</SectionLabel>
           <p
             className="text-2xl md:text-3xl font-light mb-8 max-w-md mt-8"

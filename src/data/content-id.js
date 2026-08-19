@@ -3,7 +3,6 @@ export default {
     home: 'Beranda',
     about: 'Tentang',
     projects: 'Project',
-    blog: 'Blog',
     contact: 'Kontak',
   },
   hero: {
@@ -43,9 +42,6 @@ export default {
         slug: 'project-gamma',
       },
     ],
-  },
-  blog: {
-    label: 'Blog',
   },
   contact: {
     label: 'Kontak',

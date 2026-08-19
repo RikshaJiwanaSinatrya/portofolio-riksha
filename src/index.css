@@ -7,6 +7,9 @@
 }
 
 :root {
+  --sidebar-width: 220px;
+  --page-x: clamp(1.5rem, 4vw, 4.5rem);
+  --section-y: clamp(5rem, 9vw, 8rem);
   --bg: #0a0a0f;
   --bg-sidebar: #0d0d12;
   --surface: rgba(255, 255, 255, 0.05);
@@ -23,6 +26,10 @@ html.light {
   --bg: #fafafa;
   --bg-sidebar: #f5f5f5;
   --surface: rgba(0, 0, 0, 0.04);
+  --primary-start: #5b6ef5;
+  --primary-end: #6b3fa0;
+  --accent-start: #d47acb;
+  --accent-end: #e04456;
   --text: #111111;
   --text-muted: #6b6b80;
   --border: rgba(0, 0, 0, 0.08);
@@ -36,6 +43,7 @@ html.light {
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 1.5rem;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -56,6 +64,68 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
+}
+
+@media (pointer: fine) {
+  body { cursor: none; }
+  a, button, [data-tilt] { cursor: none; }
+}
+
+:focus-visible {
+  outline: 2px solid var(--primary-start);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+.app-main {
+  position: relative;
+  z-index: 10;
+  min-height: 100vh;
+  padding-bottom: calc(5.5rem + env(safe-area-inset-bottom));
+}
+
+.content-section {
+  padding: var(--section-y) var(--page-x);
+}
+
+.hero-section {
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: clamp(6rem, 12vw, 8rem) var(--page-x) var(--section-y);
+}
+
+.content-shell {
+  width: min(100%, 68rem);
+  margin-inline: auto;
+}
+
+.reading-shell {
+  width: min(100%, 46rem);
+  margin-inline: auto;
+  padding: clamp(6rem, 10vw, 8rem) var(--page-x) var(--section-y);
+}
+
+@media (min-width: 768px) {
+  .app-main {
+    margin-left: var(--sidebar-width);
+    padding-bottom: 0;
+  }
+
+  html {
+    scroll-padding-top: 2rem;
+  }
+}
+
+@media (max-width: 767px) {
+  html {
+    scroll-padding-bottom: 6rem;
+  }
+
+  .content-section {
+    padding-block: clamp(4rem, 14vw, 6rem);
+  }
 }
 
 ::selection {
@@ -182,12 +252,24 @@ code, pre {
 }
 
 .prose pre {
+  position: relative;
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: 8px;
   padding: 1rem;
   overflow-x: auto;
   margin-bottom: 1rem;
+}
+
+.prose pre::before {
+  content: attr(data-language);
+  position: absolute;
+  top: 0.5rem;
+  right: 0.75rem;
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  text-transform: uppercase;
 }
 
 .prose pre code {
@@ -213,4 +295,17 @@ code, pre {
   border: none;
   border-top: 1px solid var(--border);
   margin: 2rem 0;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 3px;
 }

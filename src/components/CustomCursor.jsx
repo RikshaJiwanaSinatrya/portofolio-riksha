@@ -21,31 +21,26 @@ export default function CustomCursor() {
       if (!visible) setVisible(true)
     }
 
-    const onEnterInteractive = () => setHovering(true)
-    const onLeaveInteractive = () => setHovering(false)
+    const onEnter = (e) => {
+      if (e.target.closest('a, button, [data-tilt]')) {
+        setHovering(true)
+      }
+    }
 
-    window.addEventListener('mousemove', onMove)
+    const onLeave = (e) => {
+      if (e.target.closest('a, button, [data-tilt]')) {
+        setHovering(false)
+      }
+    }
 
-    const interactiveEls = document.querySelectorAll('a, button, [data-tilt]')
-    interactiveEls.forEach((el) => {
-      el.addEventListener('mouseenter', onEnterInteractive)
-      el.addEventListener('mouseleave', onLeaveInteractive)
-    })
-
-    const observer = new MutationObserver(() => {
-      const newEls = document.querySelectorAll('a, button, [data-tilt]')
-      newEls.forEach((el) => {
-        el.removeEventListener('mouseenter', onEnterInteractive)
-        el.removeEventListener('mouseleave', onLeaveInteractive)
-        el.addEventListener('mouseenter', onEnterInteractive)
-        el.addEventListener('mouseleave', onLeaveInteractive)
-      })
-    })
-    observer.observe(document.body, { childList: true, subtree: true })
+    document.addEventListener('mousemove', onMove)
+    document.addEventListener('mouseenter', onEnter, true)
+    document.addEventListener('mouseleave', onLeave, true)
 
     return () => {
-      window.removeEventListener('mousemove', onMove)
-      observer.disconnect()
+      document.removeEventListener('mousemove', onMove)
+      document.removeEventListener('mouseenter', onEnter, true)
+      document.removeEventListener('mouseleave', onLeave, true)
     }
   }, [cursorX, cursorY, visible])
 
