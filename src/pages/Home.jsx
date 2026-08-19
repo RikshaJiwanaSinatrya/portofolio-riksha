@@ -8,6 +8,7 @@ import SpecularButton from '../components/SpecularButton'
 import Footer from '../components/Footer'
 import Lanyard from '../components/Lanyard'
 import CircularText from '../components/CircularText'
+import TextLoop from '../components/TextLoop'
 
 const skills = [
   { name: 'React', icon: '⚛️' },
@@ -111,6 +112,27 @@ export default function Home() {
             <Lanyard position={[0, 0, 13]} gravity={[0, -40, 0]} frontImage="/card-front.svg" backImage="/card-back.svg" />
           </div>
         </div>
+      </section>
+
+      {/* TextLoop - Scrolling Text */}
+      <section style={{ padding: '0 var(--page-x)', overflow: 'hidden', marginTop: '-250px' }}>
+        <TextLoop
+          text="software ✦ engineering"
+          shape="wave"
+          speed={90}
+          direction="forward"
+          separator="✦"
+          curviness={90}
+          fontSize={46}
+          fontWeight={800}
+          letterSpacing={2}
+          uppercase
+          color="var(--text)"
+          ribbon
+          ribbonColor="var(--primary-start)"
+          ribbonWidth={86}
+          pauseOnHover={false}
+        />
       </section>
 
       {/* About */}
