@@ -32,7 +32,7 @@ export default function Home() {
           <AnimatedSection>
             <p className="text-sm mb-4 tracking-wide" style={{ color: 'var(--text-muted)' }}>
               {content.hero.greeting}
-            </p>
+            </p><br />
             <div className="mb-6">
               <DepthText
                 text="RIKSHA"
@@ -46,17 +46,17 @@ export default function Home() {
                 perspective={900}
                 autoOrbit
                 orbitSpeed={0.35}
-                fontSize="clamp(3rem, 12vw, 7rem)"
+                fontSize="clamp(5rem, 17vw, 10rem)"
                 fontWeight={900}
                 shadow
               />
-            </div>
+            </div><br />
             <p
-              className="text-lg md:text-xl max-w-lg leading-relaxed mb-10"
+              className="text-sm md:text-base max-w-lg leading-relaxed mb-10"
               style={{ color: 'var(--text-muted)' }}
             >
               {content.hero.subtitle}
-            </p>
+            </p><br />
             <div className="flex flex-wrap gap-4">
               <MagneticButton
                 as="a"

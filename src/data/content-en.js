@@ -7,7 +7,7 @@ export default {
   },
   hero: {
     greeting: "Hi, I'm",
-    subtitle: 'Student Developer who loves building cool things',
+    subtitle: 'Student Developer passionate about frontend development. I love crafting UI/UX, building smooth animations, and chasing peak performance in every project. Always eager to learn something new and challenge myself to create something different.',
     ctaPrimary: 'View Work',
     ctaSecondary: 'Get in Touch',
   },
