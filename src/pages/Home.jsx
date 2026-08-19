@@ -6,6 +6,7 @@ import GradientText from '../components/GradientText'
 import TiltCard from '../components/TiltCard'
 import MagneticButton from '../components/MagneticButton'
 import Footer from '../components/Footer'
+import Lanyard from '../components/Lanyard'
 
 const skills = [
   { name: 'React', icon: '⚛️' },
@@ -26,41 +27,46 @@ export default function Home() {
     <div>
       {/* Hero */}
       <section id="home" className="hero-section">
-        <AnimatedSection>
-          <p className="text-sm mb-4 tracking-wide" style={{ color: 'var(--text-muted)' }}>
-            {content.hero.greeting}
-          </p>
-          <h1
-            className="text-6xl md:text-8xl font-bold tracking-tight leading-[1.05] mb-6"
-            style={{ fontFamily: 'var(--font-display)' }}
-          >
-            <GradientText as="span">RIKSHA</GradientText>
-          </h1>
-          <p
-            className="text-lg md:text-xl max-w-lg leading-relaxed mb-10"
-            style={{ color: 'var(--text-muted)' }}
-          >
-            {content.hero.subtitle}
-          </p>
-          <div className="flex flex-wrap gap-4">
-            <MagneticButton
-              as="a"
-              href="#projects"
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-sm font-medium text-white transition-opacity hover:opacity-90"
-              style={{ background: 'linear-gradient(135deg, var(--primary-start), var(--primary-end))' }}
+        <div className="grid md:grid-cols-2 gap-8 items-center w-full">
+          <AnimatedSection>
+            <p className="text-sm mb-4 tracking-wide" style={{ color: 'var(--text-muted)' }}>
+              {content.hero.greeting}
+            </p>
+            <h1
+              className="text-6xl md:text-8xl font-bold tracking-tight leading-[1.05] mb-6"
+              style={{ fontFamily: 'var(--font-display)' }}
             >
-              {content.hero.ctaPrimary}
-            </MagneticButton>
-            <MagneticButton
-              as="a"
-              href="#contact"
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-sm font-medium glass transition-opacity hover:opacity-80"
-              style={{ color: 'var(--text)' }}
+              <GradientText as="span">RIKSHA</GradientText>
+            </h1>
+            <p
+              className="text-lg md:text-xl max-w-lg leading-relaxed mb-10"
+              style={{ color: 'var(--text-muted)' }}
             >
-              {content.hero.ctaSecondary}
-            </MagneticButton>
+              {content.hero.subtitle}
+            </p>
+            <div className="flex flex-wrap gap-4">
+              <MagneticButton
+                as="a"
+                href="#projects"
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-sm font-medium text-white transition-opacity hover:opacity-90"
+                style={{ background: 'linear-gradient(135deg, var(--primary-start), var(--primary-end))' }}
+              >
+                {content.hero.ctaPrimary}
+              </MagneticButton>
+              <MagneticButton
+                as="a"
+                href="#contact"
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-sm font-medium glass transition-opacity hover:opacity-80"
+                style={{ color: 'var(--text)' }}
+              >
+                {content.hero.ctaSecondary}
+              </MagneticButton>
+            </div>
+          </AnimatedSection>
+          <div className="hidden md:block h-[750px]">
+            <Lanyard position={[0, 0, 13]} gravity={[0, -40, 0]} frontImage="/card-front.svg" backImage="/card-back.svg" />
           </div>
-        </AnimatedSection>
+        </div>
       </section>
 
       {/* About */}
