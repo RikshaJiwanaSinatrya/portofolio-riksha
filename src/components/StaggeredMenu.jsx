@@ -1,6 +1,134 @@
-import React, { useCallback, useLayoutEffect, useRef, useState } from 'react'
+import React, { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { gsap } from 'gsap'
 import './StaggeredMenu.css'
+
+const animDefaults = { duration: 0.6, ease: 'expo' }
+
+function findClosestEdge(mouseX, mouseY, width, height) {
+  const topEdgeDist = Math.hypot(mouseX - width / 2, mouseY)
+  const bottomEdgeDist = Math.hypot(mouseX - width / 2, mouseY - height)
+  return topEdgeDist < bottomEdgeDist ? 'top' : 'bottom'
+}
+
+function FlowingMenuItem({ item, idx }) {
+  const itemRef = useRef(null)
+  const marqueeRef = useRef(null)
+  const marqueeInnerRef = useRef(null)
+  const slideAnimRef = useRef(null)
+  const scrollAnimRef = useRef(null)
+
+  const repetitions = 12
+
+  useEffect(() => {
+    const inner = marqueeInnerRef.current
+    if (!inner) return
+
+    let killed = false
+
+    const setup = () => {
+      if (killed) return
+      const part = inner.querySelector('.sm-marquee-part')
+      if (!part || part.offsetWidth === 0) {
+        requestAnimationFrame(setup)
+        return
+      }
+
+      scrollAnimRef.current?.kill()
+      scrollAnimRef.current = gsap.to(inner, {
+        x: -part.offsetWidth,
+        duration: 15,
+        ease: 'none',
+        repeat: -1,
+      })
+    }
+
+    requestAnimationFrame(setup)
+
+    return () => {
+      killed = true
+      scrollAnimRef.current?.kill()
+    }
+  }, [])
+
+  const killSlide = useCallback(() => {
+    slideAnimRef.current?.kill()
+    slideAnimRef.current = null
+  }, [])
+
+  const onMouseEnter = useCallback((ev) => {
+    const el = itemRef.current
+    const m = marqueeRef.current
+    if (!el || !m) return
+
+    killSlide()
+
+    const rect = el.getBoundingClientRect()
+    const edge = findClosestEdge(
+      ev.clientX - rect.left,
+      ev.clientY - rect.top,
+      rect.width,
+      rect.height
+    )
+
+    gsap.set(m, { y: edge === 'top' ? '-101%' : '101%' })
+
+    slideAnimRef.current = gsap
+      .timeline({ defaults: animDefaults })
+      .to(m, { y: '0%' }, 0)
+  }, [killSlide])
+
+  const onMouseLeave = useCallback((ev) => {
+    const el = itemRef.current
+    const m = marqueeRef.current
+    if (!el || !m) return
+
+    killSlide()
+
+    const rect = el.getBoundingClientRect()
+    const edge = findClosestEdge(
+      ev.clientX - rect.left,
+      ev.clientY - rect.top,
+      rect.width,
+      rect.height
+    )
+
+    slideAnimRef.current = gsap
+      .timeline({ defaults: animDefaults })
+      .to(m, { y: edge === 'top' ? '-101%' : '101%' }, 0)
+  }, [killSlide])
+
+  return (
+    <li className="sm-panel-itemWrap" ref={itemRef}>
+      <a
+        className="sm-panel-item"
+        href={item.link}
+        aria-label={item.ariaLabel}
+        data-index={idx + 1}
+        onMouseEnter={onMouseEnter}
+        onMouseLeave={onMouseLeave}
+      >
+        <span className="sm-panel-itemLabel">{item.label}</span>
+      </a>
+      <div className="sm-marquee" ref={marqueeRef}>
+        <div className="sm-marquee-inner-wrap">
+          <div className="sm-marquee-inner" ref={marqueeInnerRef} aria-hidden="true">
+            {[...Array(repetitions)].map((_, i) => (
+              <div className="sm-marquee-part" key={i}>
+                <span>{item.label}</span>
+                {item.image && (
+                  <div
+                    className="sm-marquee-img"
+                    style={{ backgroundImage: `url(${item.image})` }}
+                  />
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </li>
+  )
+}
 
 export const StaggeredMenu = ({
   position = 'left',
@@ -434,11 +562,7 @@ export const StaggeredMenu = ({
           <ul className="sm-panel-list" role="list" data-numbering={displayItemNumbering || undefined}>
             {items && items.length ? (
               items.map((it, idx) => (
-                <li className="sm-panel-itemWrap" key={it.label + idx}>
-                  <a className="sm-panel-item" href={it.link} aria-label={it.ariaLabel} data-index={idx + 1}>
-                    <span className="sm-panel-itemLabel">{it.label}</span>
-                  </a>
-                </li>
+                <FlowingMenuItem key={it.label + idx} item={it} idx={idx} />
               ))
             ) : (
               <li className="sm-panel-itemWrap" aria-hidden="true">

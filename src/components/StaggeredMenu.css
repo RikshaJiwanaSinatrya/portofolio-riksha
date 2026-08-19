@@ -128,6 +128,7 @@
   display: flex;
   flex-direction: column;
   padding: 6em 2em 2em 2em;
+  overflow-x: clip;
   overflow-y: auto;
   z-index: 10;
   pointer-events: auto;
@@ -343,4 +344,64 @@
   .staggered-menu-wrapper[data-open] .sm-logo-img {
     filter: invert(100%);
   }
+}
+
+/* FlowingMenu marquee overlay on menu items */
+
+.sm-panel-itemWrap {
+  position: relative;
+  overflow: hidden;
+}
+
+.sm-marquee {
+  position: absolute;
+  top: 0;
+  left: -2em;
+  overflow: hidden;
+  width: calc(100% + 4em);
+  height: 100%;
+  pointer-events: none;
+  transform: translate3d(0, 101%, 0);
+  z-index: 3;
+  background: #fff;
+}
+
+.sm-marquee-inner-wrap {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+
+.sm-marquee-inner {
+  display: flex;
+  align-items: center;
+  position: relative;
+  height: 100%;
+  width: fit-content;
+  will-change: transform;
+}
+
+.sm-marquee-part {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.sm-marquee-part span {
+  white-space: nowrap;
+  text-transform: uppercase;
+  font-weight: 500;
+  font-size: 3.5rem;
+  line-height: 1;
+  padding: 0 0.4rem;
+  color: #120F17;
+}
+
+.sm-marquee-img {
+  width: 120px;
+  height: 80px;
+  margin: 0 0.6rem;
+  border-radius: 10px;
+  background-size: cover;
+  background-position: 50% 50%;
 }
