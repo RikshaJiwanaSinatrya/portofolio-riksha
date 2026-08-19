@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom'
 import { AnimatePresence, motion } from 'framer-motion'
 import { ThemeProvider } from './context/ThemeContext'
@@ -33,15 +34,17 @@ function AnimatedRoutes() {
 }
 
 export default function App() {
+  const [menuOpen, setMenuOpen] = useState(true)
+
   return (
     <ThemeProvider>
       <LanguageProvider>
         <BrowserRouter>
           <GradientMesh />
-          <Sidebar />
+          <Sidebar onMenuOpen={() => setMenuOpen(true)} onMenuClose={() => setMenuOpen(false)} />
           <FloatingToggles />
           <BackToTop />
-          <main className="app-main">
+          <main className={`app-main${menuOpen ? ' menu-open' : ''}`}>
             <AnimatedRoutes />
           </main>
         </BrowserRouter>

@@ -9,7 +9,7 @@ const socialItems = [
   { label: 'Email', link: 'mailto:hello@riksha.dev' },
 ]
 
-export default function Sidebar() {
+export default function Sidebar({ onMenuOpen, onMenuClose }) {
   const { language } = useLanguage()
   const content = language === 'id' ? contentId : contentEn
 
@@ -33,6 +33,9 @@ export default function Sidebar() {
       colors={['var(--primary-end)', 'var(--primary-start)']}
       accentColor="var(--primary-start)"
       isFixed={true}
+      defaultOpen={true}
+      onMenuOpen={onMenuOpen}
+      onMenuClose={onMenuClose}
     />
   )
 }

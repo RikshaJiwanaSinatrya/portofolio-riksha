@@ -17,11 +17,12 @@ export const StaggeredMenu = ({
   changeMenuColorOnOpen = true,
   isFixed = false,
   closeOnClickAway = true,
+  defaultOpen = false,
   onMenuOpen,
   onMenuClose,
 }) => {
-  const [open, setOpen] = useState(false)
-  const openRef = useRef(false)
+  const [open, setOpen] = useState(defaultOpen)
+  const openRef = useRef(defaultOpen)
   const panelRef = useRef(null)
   const preLayersRef = useRef(null)
   const preLayerElsRef = useRef([])
@@ -58,18 +59,42 @@ export const StaggeredMenu = ({
       preLayerElsRef.current = preLayers
 
       const offscreen = position === 'left' ? -100 : 100
-      gsap.set([panel, ...preLayers], { xPercent: offscreen, opacity: 1 })
+
+      if (defaultOpen) {
+        gsap.set([panel, ...preLayers], { xPercent: 0, opacity: 1 })
+        const itemEls = Array.from(panel.querySelectorAll('.sm-panel-itemLabel'))
+        const numberEls = Array.from(panel.querySelectorAll('.sm-panel-list[data-numbering] .sm-panel-item'))
+        const socialTitle = panel.querySelector('.sm-socials-title')
+        const socialLinks = Array.from(panel.querySelectorAll('.sm-socials-link'))
+        if (itemEls.length) gsap.set(itemEls, { yPercent: 0, rotate: 0 })
+        if (numberEls.length) gsap.set(numberEls, { '--sm-num-opacity': 1 })
+        if (socialTitle) gsap.set(socialTitle, { opacity: 1 })
+        if (socialLinks.length) gsap.set(socialLinks, { y: 0, opacity: 1 })
+        gsap.set(icon, { rotate: 225, transformOrigin: '50% 50%' })
+      } else {
+        gsap.set([panel, ...preLayers], { xPercent: offscreen, opacity: 1 })
+        gsap.set(icon, { rotate: 0, transformOrigin: '50% 50%' })
+      }
+
       if (preContainer) {
         gsap.set(preContainer, { xPercent: 0, opacity: 1 })
       }
       gsap.set(plusH, { transformOrigin: '50% 50%', rotate: 0 })
       gsap.set(plusV, { transformOrigin: '50% 50%', rotate: 90 })
-      gsap.set(icon, { rotate: 0, transformOrigin: '50% 50%' })
       gsap.set(textInner, { yPercent: 0 })
-      if (toggleBtnRef.current) gsap.set(toggleBtnRef.current, { color: menuButtonColor })
+      if (toggleBtnRef.current) {
+        const btnColor = defaultOpen ? openMenuButtonColor : menuButtonColor
+        gsap.set(toggleBtnRef.current, { color: btnColor })
+      }
     })
     return () => ctx.revert()
-  }, [menuButtonColor, position])
+  }, [menuButtonColor, openMenuButtonColor, position, defaultOpen])
+
+  React.useEffect(() => {
+    if (defaultOpen) {
+      onMenuOpen?.()
+    }
+  }, [])
 
   const buildOpenTimeline = useCallback(() => {
     const panel = panelRef.current
