@@ -4,7 +4,7 @@ import contentEn from '../data/content-en'
 import AnimatedSection from '../components/AnimatedSection'
 import DepthText from '../components/DepthText'
 import TiltCard from '../components/TiltCard'
-import MagneticButton from '../components/MagneticButton'
+import SpecularButton from '../components/SpecularButton'
 import Footer from '../components/Footer'
 import Lanyard from '../components/Lanyard'
 import CircularText from '../components/CircularText'
@@ -58,22 +58,44 @@ export default function Home() {
               {content.hero.subtitle}
             </p><br />
             <div className="flex flex-wrap gap-4">
-              <MagneticButton
-                as="a"
-                href="#projects"
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-sm font-medium text-white transition-opacity hover:opacity-90"
-                style={{ background: 'linear-gradient(135deg, var(--primary-start), var(--primary-end))' }}
-              >
-                {content.hero.ctaPrimary}
-              </MagneticButton>
-              <MagneticButton
-                as="a"
-                href="#contact"
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-sm font-medium glass transition-opacity hover:opacity-80"
-                style={{ color: 'var(--text)' }}
-              >
-                {content.hero.ctaSecondary}
-              </MagneticButton>
+              <a href="#projects">
+                <SpecularButton
+                  size="lg"
+                  radius={18}
+                  textColor="#f5f5f5"
+                  lineColor="#ffffff"
+                  baseColor="#525252"
+                  intensity={1}
+                  shineSize={10}
+                  shineFade={40}
+                  thickness={1}
+                  speed={0.35}
+                  followMouse
+                  proximity={250}
+                >
+                  {content.hero.ctaPrimary}
+                </SpecularButton>
+              </a>
+              <a href="#contact">
+                <SpecularButton
+                  size="lg"
+                  radius={18}
+                  tint="var(--surface)"
+                  tintOpacity={0.5}
+                  textColor="var(--text)"
+                  lineColor="var(--primary-start)"
+                  baseColor="var(--border)"
+                  intensity={0.8}
+                  shineSize={10}
+                  shineFade={40}
+                  thickness={1}
+                  speed={0.35}
+                  followMouse
+                  proximity={250}
+                >
+                  {content.hero.ctaSecondary}
+                </SpecularButton>
+              </a>
             </div>
           </AnimatedSection>
           <div className="hidden md:block h-[750px] relative">
@@ -191,14 +213,24 @@ export default function Home() {
           >
             {content.contact.headline}
           </p>
-          <MagneticButton
-            as="a"
-            href={`mailto:${content.contact.email}`}
-            className="inline-flex items-center gap-2 text-lg font-medium border-b pb-1 transition-colors duration-200"
-            style={{ color: 'var(--text)', borderColor: 'var(--text)' }}
-          >
-            {content.contact.email}
-          </MagneticButton>
+          <a href={`mailto:${content.contact.email}`} className="inline-block">
+            <SpecularButton
+              size="md"
+              radius={18}
+              textColor="var(--text)"
+              lineColor="var(--text)"
+              baseColor="var(--border)"
+              intensity={0.8}
+              shineSize={10}
+              shineFade={40}
+              thickness={1}
+              speed={0.35}
+              followMouse
+              proximity={250}
+            >
+              {content.contact.email}
+            </SpecularButton>
+          </a>
           <div className="mt-10 flex gap-6 text-sm" style={{ color: 'var(--text-muted)' }}>
             <a
               href="https://github.com/riksha"
