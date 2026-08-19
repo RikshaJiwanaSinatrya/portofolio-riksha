@@ -7,7 +7,7 @@
 }
 
 :root {
-  --sidebar-width: 220px;
+  --sidebar-width: 250px;
   --page-x: clamp(1.5rem, 4vw, 4.5rem);
   --section-y: clamp(5rem, 9vw, 8rem);
   --bg: #0a0a0f;
@@ -67,8 +67,8 @@ body {
 }
 
 @media (pointer: fine) {
-  body { cursor: none; }
-  a, button, [data-tilt] { cursor: none; }
+  body { cursor: default; }
+  a, button, [data-tilt] { cursor: pointer; }
 }
 
 :focus-visible {
@@ -109,7 +109,6 @@ body {
 
 @media (min-width: 768px) {
   .app-main {
-    margin-left: var(--sidebar-width);
     padding-bottom: 0;
   }
 

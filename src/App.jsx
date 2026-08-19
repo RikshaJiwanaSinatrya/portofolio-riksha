@@ -3,10 +3,8 @@ import { AnimatePresence, motion } from 'framer-motion'
 import { ThemeProvider } from './context/ThemeContext'
 import { LanguageProvider } from './context/LanguageContext'
 import Sidebar from './components/Sidebar'
-import BottomNav from './components/BottomNav'
 import FloatingToggles from './components/FloatingToggles'
 import GradientMesh from './components/GradientMesh'
-import CustomCursor from './components/CustomCursor'
 import BackToTop from './components/BackToTop'
 import Home from './pages/Home'
 import BlogPost from './pages/BlogPost'
@@ -39,10 +37,8 @@ export default function App() {
     <ThemeProvider>
       <LanguageProvider>
         <BrowserRouter>
-          <CustomCursor />
           <GradientMesh />
           <Sidebar />
-          <BottomNav />
           <FloatingToggles />
           <BackToTop />
           <main className="app-main">
