@@ -2,7 +2,7 @@ import { useLanguage } from '../context/LanguageContext'
 import contentId from '../data/content-id'
 import contentEn from '../data/content-en'
 import AnimatedSection from '../components/AnimatedSection'
-import DepthText from '../components/DepthText'
+import StrokeText from '../components/StrokeText'
 import TiltCard from '../components/TiltCard'
 import SpecularButton from '../components/SpecularButton'
 import Footer from '../components/Footer'
@@ -30,34 +30,34 @@ export default function Home() {
       <section id="home" className="hero-section" style={{ paddingTop: 0 }}>
         <div className="grid md:grid-cols-2 gap-8 items-center w-full">
           <AnimatedSection>
+            <div style={{ textAlign: 'left' }}>
             <p className="text-sm mb-4 tracking-wide" style={{ color: 'var(--text-muted)' }}>
               {content.hero.greeting}
-            </p><br />
+            </p>
             <div className="mb-6">
-              <DepthText
-                text="RIKSHA"
-                layers={34}
-                depth={2.4}
-                faceColor="var(--text)"
-                depthColor="var(--primary-start)"
-                tilt={7.5}
-                pointerTracking
-                smoothing={0.14}
-                perspective={900}
-                autoOrbit
-                orbitSpeed={0.35}
-                fontSize="clamp(5rem, 17vw, 10rem)"
-                fontWeight={900}
-                shadow
+              <StrokeText
+                text="Riksha"
+                strokeColor="var(--primary-start)"
+                fillColor="var(--text)"
+                strokeWidth={1.4}
+                drawDuration={1.6}
+                fillDelay={0.2}
+                stagger={0.05}
+                ease="power2.out"
+                trigger="mount"
+                fillMode="wipe"
+                fontSize={128}
+                fontWeight={800}
+                letterSpacing={-4}
               />
-            </div><br />
+            </div>
             <p
               className="text-sm md:text-base max-w-lg leading-relaxed mb-10"
               style={{ color: 'var(--text-muted)' }}
             >
               {content.hero.subtitle}
             </p><br />
-            <div className="flex flex-wrap gap-4">
+            <div className="flex flex-wrap gap-4" style={{ justifyContent: 'flex-start' }}>
               <a href="#projects">
                 <SpecularButton
                   size="lg"
@@ -96,6 +96,7 @@ export default function Home() {
                   {content.hero.ctaSecondary}
                 </SpecularButton>
               </a>
+            </div>
             </div>
           </AnimatedSection>
           <div className="hidden md:block h-[750px] relative">
