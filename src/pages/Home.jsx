@@ -2,7 +2,7 @@ import { useLanguage } from '../context/LanguageContext'
 import contentId from '../data/content-id'
 import contentEn from '../data/content-en'
 import AnimatedSection from '../components/AnimatedSection'
-import GradientText from '../components/GradientText'
+import DepthText from '../components/DepthText'
 import TiltCard from '../components/TiltCard'
 import MagneticButton from '../components/MagneticButton'
 import Footer from '../components/Footer'
@@ -33,12 +33,24 @@ export default function Home() {
             <p className="text-sm mb-4 tracking-wide" style={{ color: 'var(--text-muted)' }}>
               {content.hero.greeting}
             </p>
-            <h1
-              className="text-6xl md:text-8xl font-bold tracking-tight leading-[1.05] mb-6"
-              style={{ fontFamily: 'var(--font-display)' }}
-            >
-              <GradientText as="span">RIKSHA</GradientText>
-            </h1>
+            <div className="mb-6">
+              <DepthText
+                text="RIKSHA"
+                layers={34}
+                depth={2.4}
+                faceColor="var(--text)"
+                depthColor="var(--primary-start)"
+                tilt={7.5}
+                pointerTracking
+                smoothing={0.14}
+                perspective={900}
+                autoOrbit
+                orbitSpeed={0.35}
+                fontSize="clamp(3rem, 12vw, 7rem)"
+                fontWeight={900}
+                shadow
+              />
+            </div>
             <p
               className="text-lg md:text-xl max-w-lg leading-relaxed mb-10"
               style={{ color: 'var(--text-muted)' }}
