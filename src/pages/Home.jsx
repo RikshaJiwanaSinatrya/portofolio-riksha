@@ -26,7 +26,7 @@ export default function Home() {
   return (
     <div>
       {/* Hero */}
-      <section id="home" className="hero-section">
+      <section id="home" className="hero-section" style={{ paddingTop: 0 }}>
         <div className="grid md:grid-cols-2 gap-8 items-center w-full">
           <AnimatedSection>
             <p className="text-sm mb-4 tracking-wide" style={{ color: 'var(--text-muted)' }}>
