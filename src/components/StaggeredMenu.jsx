@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react'
+import { useNavigate, useLocation } from 'react-router-dom'
 import { gsap } from 'gsap'
 import './StaggeredMenu.css'
 
@@ -10,7 +11,9 @@ function findClosestEdge(mouseX, mouseY, width, height) {
   return topEdgeDist < bottomEdgeDist ? 'top' : 'bottom'
 }
 
-function FlowingMenuItem({ item, idx, isActive }) {
+function FlowingMenuItem({ item, idx, isActive, closeMenu }) {
+  const navigate = useNavigate()
+  const location = useLocation()
   const itemRef = useRef(null)
   const marqueeRef = useRef(null)
   const marqueeInnerRef = useRef(null)
@@ -112,6 +115,33 @@ function FlowingMenuItem({ item, idx, isActive }) {
       .to(m, { y: edge === 'top' ? '-101%' : '101%' }, 0)
   }, [killSlide, isActive])
 
+  const handleClick = useCallback((e) => {
+    e.preventDefault()
+
+    const href = item.link
+    const hashIdx = href.indexOf('#')
+    const path = hashIdx >= 0 ? href.slice(0, hashIdx) || '/' : href
+    const hash = hashIdx >= 0 ? href.slice(hashIdx) : ''
+
+    const scrollToElement = () => {
+      if (hash) {
+        const el = document.getElementById(hash.slice(1))
+        if (el) {
+          el.scrollIntoView({ behavior: 'smooth' })
+          return
+        }
+      }
+      window.scrollTo({ top: 0, behavior: 'smooth' })
+    }
+
+    if (path === location.pathname) {
+      scrollToElement()
+    } else {
+      navigate(path + hash)
+      setTimeout(scrollToElement, 50)
+    }
+  }, [item.link, location.pathname, navigate, closeMenu])
+
   return (
     <li className="sm-panel-itemWrap" ref={itemRef}>
       <a
@@ -119,6 +149,7 @@ function FlowingMenuItem({ item, idx, isActive }) {
         href={item.link}
         aria-label={item.ariaLabel}
         data-index={idx + 1}
+        onClick={handleClick}
         onMouseEnter={onMouseEnter}
         onMouseLeave={onMouseLeave}
       >
@@ -580,7 +611,7 @@ export const StaggeredMenu = ({
               items.map((it, idx) => {
                 const isActive = activeItem === it.link
                 return (
-                  <FlowingMenuItem key={it.label + idx} item={it} idx={idx} isActive={isActive} />
+                  <FlowingMenuItem key={it.label + idx} item={it} idx={idx} isActive={isActive} closeMenu={closeMenu} />
                 )
               })
             ) : (
