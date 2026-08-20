@@ -2,6 +2,7 @@ import { useLanguage } from '../context/LanguageContext'
 import contentId from '../data/content-id'
 import contentEn from '../data/content-en'
 import StaggeredMenu from './StaggeredMenu'
+import { useActiveSection } from '../hooks/useActiveSection'
 
 const socialItems = [
   { label: 'GitHub', link: 'https://github.com/riksha' },
@@ -12,6 +13,7 @@ const socialItems = [
 export default function Sidebar({ onMenuOpen, onMenuClose }) {
   const { language } = useLanguage()
   const content = language === 'id' ? contentId : contentEn
+  const activeSection = useActiveSection(['home', 'about', 'projects', 'contact'])
 
   const menuItems = [
     { label: content.nav.home, ariaLabel: content.nav.home, link: '/' },
@@ -19,6 +21,11 @@ export default function Sidebar({ onMenuOpen, onMenuClose }) {
     { label: content.nav.projects, ariaLabel: content.nav.projects, link: '/#projects' },
     { label: content.nav.contact, ariaLabel: content.nav.contact, link: '/#contact' },
   ]
+
+  const getActiveItem = () => {
+    if (activeSection === '/') return '/'
+    return `/#${activeSection}`
+  }
 
   return (
     <StaggeredMenu
@@ -36,6 +43,7 @@ export default function Sidebar({ onMenuOpen, onMenuClose }) {
       defaultOpen={true}
       onMenuOpen={onMenuOpen}
       onMenuClose={onMenuClose}
+      activeItem={getActiveItem()}
     />
   )
 }

@@ -303,6 +303,10 @@
   color: var(--sm-accent, #667eea);
 }
 
+.sm-panel-item--active .sm-panel-itemLabel {
+  color: #120F17;
+}
+
 .sm-panel-list[data-numbering] {
   counter-reset: smItem;
 }

@@ -10,7 +10,7 @@ function findClosestEdge(mouseX, mouseY, width, height) {
   return topEdgeDist < bottomEdgeDist ? 'top' : 'bottom'
 }
 
-function FlowingMenuItem({ item, idx }) {
+function FlowingMenuItem({ item, idx, isActive }) {
   const itemRef = useRef(null)
   const marqueeRef = useRef(null)
   const marqueeInnerRef = useRef(null)
@@ -50,6 +50,19 @@ function FlowingMenuItem({ item, idx }) {
     }
   }, [])
 
+  useEffect(() => {
+    const m = marqueeRef.current
+    if (!m) return
+
+    if (isActive) {
+      gsap.killTweensOf(m)
+      gsap.set(m, { y: '0%' })
+    } else {
+      gsap.killTweensOf(m)
+      gsap.set(m, { y: '101%' })
+    }
+  }, [isActive])
+
   const killSlide = useCallback(() => {
     slideAnimRef.current?.kill()
     slideAnimRef.current = null
@@ -82,6 +95,8 @@ function FlowingMenuItem({ item, idx }) {
     const m = marqueeRef.current
     if (!el || !m) return
 
+    if (isActive) return
+
     killSlide()
 
     const rect = el.getBoundingClientRect()
@@ -95,12 +110,12 @@ function FlowingMenuItem({ item, idx }) {
     slideAnimRef.current = gsap
       .timeline({ defaults: animDefaults })
       .to(m, { y: edge === 'top' ? '-101%' : '101%' }, 0)
-  }, [killSlide])
+  }, [killSlide, isActive])
 
   return (
     <li className="sm-panel-itemWrap" ref={itemRef}>
       <a
-        className="sm-panel-item"
+        className={`sm-panel-item${isActive ? ' sm-panel-item--active' : ''}`}
         href={item.link}
         aria-label={item.ariaLabel}
         data-index={idx + 1}
@@ -148,6 +163,7 @@ export const StaggeredMenu = ({
   defaultOpen = false,
   onMenuOpen,
   onMenuClose,
+  activeItem,
 }) => {
   const [open, setOpen] = useState(defaultOpen)
   const openRef = useRef(defaultOpen)
@@ -561,9 +577,12 @@ export const StaggeredMenu = ({
         <div className="sm-panel-inner">
           <ul className="sm-panel-list" role="list" data-numbering={displayItemNumbering || undefined}>
             {items && items.length ? (
-              items.map((it, idx) => (
-                <FlowingMenuItem key={it.label + idx} item={it} idx={idx} />
-              ))
+              items.map((it, idx) => {
+                const isActive = activeItem === it.link
+                return (
+                  <FlowingMenuItem key={it.label + idx} item={it} idx={idx} isActive={isActive} />
+                )
+              })
             ) : (
               <li className="sm-panel-itemWrap" aria-hidden="true">
                 <span className="sm-panel-item">
