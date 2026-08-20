@@ -16,9 +16,54 @@ export default {
     statement: 'I love building interfaces that are fast, accessible, and visually pleasing.',
     detail1: "I'm a student focused on frontend development with deep attention to visual craft and interaction design. Every project I work on gets the small-detail treatment.",
     detail2: "Currently learning: design systems, motion design, and the edge between aesthetics and engineering.",
+    focusAreas: [
+      {
+        title: 'Frontend Development',
+        description: 'Crafting responsive, performant interfaces with modern frameworks and clean code architecture.',
+        icon: 'code',
+      },
+      {
+        title: 'UI/UX Design',
+        description: 'Designing intuitive user experiences with attention to visual hierarchy and micro-interactions.',
+        icon: 'design',
+      },
+      {
+        title: 'Motion & Animation',
+        description: 'Bringing interfaces to life with smooth, purposeful animations that enhance usability.',
+        icon: 'motion',
+      },
+    ],
   },
   skills: {
     label: 'Skills',
+    categories: [
+      {
+        name: 'Frontend',
+        items: [
+          { name: 'React', level: 90 },
+          { name: 'JavaScript', level: 85 },
+          { name: 'TypeScript', level: 75 },
+          { name: 'Next.js', level: 70 },
+        ],
+      },
+      {
+        name: 'Styling',
+        items: [
+          { name: 'Tailwind CSS', level: 90 },
+          { name: 'CSS/SASS', level: 85 },
+          { name: 'Framer Motion', level: 80 },
+        ],
+      },
+      {
+        name: 'Tools',
+        items: [
+          { name: 'Git', level: 80 },
+          { name: 'Figma', level: 75 },
+          { name: 'Vite', level: 85 },
+          { name: 'Node.js', level: 65 },
+        ],
+      },
+    ],
   },
   projects: {
     label: 'Projects',
@@ -46,11 +91,13 @@ export default {
   contact: {
     label: 'Contact',
     headline: 'Have something in mind? Let\u2019s talk.',
+    description: "I'm always open to discussing new projects, creative ideas, or opportunities to be part of your vision.",
     email: 'hello@riksha.dev',
     github: 'GitHub',
     linkedin: 'LinkedIn',
   },
   footer: {
     copyright: '\u00a9 2026 Riksha. Built with React.',
+    tagline: 'Crafting digital experiences with passion.',
   },
 }
