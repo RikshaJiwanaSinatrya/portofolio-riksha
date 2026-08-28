@@ -22,6 +22,7 @@
   animation: preloader-float 16s ease-in-out infinite;
 }
 
+
 .preloader-mark {
   position: relative;
   width: 190px;
@@ -88,10 +89,4 @@
   0% { opacity: 0; transform: translate(-50%, -50%) scale(0.6); }
   40% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
   100% { opacity: 0; transform: translate(-50%, -50%) scale(0.6); }
-}
-
-@keyframes preloader-float {
-  0%, 100% { transform: translate(0, 0) scale(1); }
-  33% { transform: translate(50px, -40px) scale(1.08); }
-  66% { transform: translate(-30px, 30px) scale(0.95); }
 }

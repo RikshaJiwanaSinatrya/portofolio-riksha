@@ -56,8 +56,6 @@ export default function Preloader({ onComplete }) {
     return () => cancelAnimationFrame(raf)
   }, [onComplete])
 
-  const offset = CIRC * (1 - progress / 100)
-
   return (
     <motion.div
       className="preloader"
