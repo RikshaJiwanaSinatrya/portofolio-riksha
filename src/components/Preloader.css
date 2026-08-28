@@ -51,10 +51,10 @@
   animation: preloader-bob 3.2s ease-in-out infinite;
 }
 
-.preloader-bolt {
-  width: 66px;
+.preloader-star {
+  width: 74px;
   height: auto;
-  filter: drop-shadow(0 0 22px color-mix(in srgb, var(--primary-start) 60%, transparent));
+  filter: drop-shadow(0 0 24px color-mix(in srgb, var(--primary-start) 60%, transparent));
 }
 
 .preloader-dots {

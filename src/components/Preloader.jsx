@@ -11,8 +11,8 @@ const prefersReduced =
 const R = 64
 const CIRC = 2 * Math.PI * R
 
-const BOLT_PATH =
-  'M25.946 44.938c-.664.845-2.021.375-2.021-.698V33.937a2.26 2.26 0 0 0-2.262-2.262H10.287c-.92 0-1.456-1.04-.92-1.788l7.48-10.471c1.07-1.497 0-3.578-1.842-3.578H1.237c-.92 0-1.456-1.04-.92-1.788L10.013.474c.214-.297.556-.474.92-.474h28.894c.92 0 1.456 1.04.92 1.788l-7.48 10.471c-1.07 1.498 0 3.579 1.842 3.579h11.377c.943 0 1.473 1.088.89 1.83L25.947 44.94z'
+const STAR_PATH =
+  'M50 4 L61.6 37.2 L96.8 37.6 L69 60.1 L80.6 94.5 L50 74.7 L19.4 94.5 L31 60.1 L3.2 37.6 L38.4 37.2 Z'
 
 export default function Preloader({ onComplete }) {
   const [progress, setProgress] = useState(0)
@@ -56,6 +56,8 @@ export default function Preloader({ onComplete }) {
     return () => cancelAnimationFrame(raf)
   }, [onComplete])
 
+  const offset = CIRC * (1 - progress / 100)
+
   return (
     <motion.div
       className="preloader"
@@ -71,7 +73,7 @@ export default function Preloader({ onComplete }) {
               <stop offset="60%" style={{ stopColor: 'var(--primary-end)' }} />
               <stop offset="100%" style={{ stopColor: 'var(--accent-start)' }} />
             </linearGradient>
-            <linearGradient id="preloader-bolt-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <linearGradient id="preloader-star-grad" x1="0%" y1="0%" x2="100%" y2="100%">
               <stop offset="0%" style={{ stopColor: 'var(--primary-start)' }} />
               <stop offset="50%" style={{ stopColor: 'var(--primary-end)' }} />
               <stop offset="100%" style={{ stopColor: 'var(--accent-start)' }} />
@@ -104,8 +106,8 @@ export default function Preloader({ onComplete }) {
         </svg>
 
         <div className="preloader-core">
-          <svg className="preloader-bolt" viewBox="0 0 48 46" aria-hidden="true">
-            <path fill="url(#preloader-bolt-grad)" d={BOLT_PATH} />
+          <svg className="preloader-star" viewBox="0 0 100 100" aria-hidden="true">
+            <path fill="url(#preloader-star-grad)" d={STAR_PATH} />
           </svg>
         </div>
 
