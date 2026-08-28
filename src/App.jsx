@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom'
 import { AnimatePresence, motion } from 'framer-motion'
 import { ThemeProvider } from './context/ThemeContext'
 import { LanguageProvider } from './context/LanguageContext'
+import Preloader from './components/Preloader'
 import Sidebar from './components/Sidebar'
 import FloatingToggles from './components/FloatingToggles'
 import GradientMesh from './components/GradientMesh'
@@ -35,11 +36,15 @@ function AnimatedRoutes() {
 
 export default function App() {
   const [menuOpen, setMenuOpen] = useState(true)
+  const [loading, setLoading] = useState(true)
 
   return (
     <ThemeProvider>
       <LanguageProvider>
         <BrowserRouter>
+          <AnimatePresence mode="wait">
+            {loading && <Preloader onComplete={() => setLoading(false)} />}
+          </AnimatePresence>
           <GradientMesh />
           <Sidebar onMenuOpen={() => setMenuOpen(true)} onMenuClose={() => setMenuOpen(false)} />
           <FloatingToggles />

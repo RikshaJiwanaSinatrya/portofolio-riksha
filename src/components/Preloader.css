@@ -1,0 +1,29 @@
+.preloader {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg);
+  overflow: hidden;
+}
+
+.preloader::before {
+  content: '';
+  position: absolute;
+  width: 520px;
+  height: 520px;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--primary-start), transparent 70%);
+  filter: blur(100px);
+  opacity: 0.16;
+  pointer-events: none;
+  animation: preloader-float 16s ease-in-out infinite;
+}
+
+@keyframes preloader-float {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(50px, -40px) scale(1.08); }
+  66% { transform: translate(-30px, 30px) scale(0.95); }
+}
