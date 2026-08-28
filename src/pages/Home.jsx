@@ -1,3 +1,4 @@
+import { useEffect, useRef, useState } from 'react'
 import { useLanguage } from '../context/LanguageContext'
 import contentId from '../data/content-id'
 import contentEn from '../data/content-en'
@@ -46,6 +47,127 @@ function SectionLabel({ children }) {
     >
       {children}
     </h2>
+  )
+}
+
+function highlightSentence(sentence, highlights = []) {
+  const parts = []
+  let rest = sentence
+  for (const phrase of highlights) {
+    const idx = rest.toLowerCase().indexOf(phrase.toLowerCase())
+    if (idx < 0) continue
+    if (idx > 0) parts.push(rest.slice(0, idx))
+    parts.push({ highlight: true, text: rest.slice(idx, idx + phrase.length) })
+    rest = rest.slice(idx + phrase.length)
+  }
+  if (rest) parts.push(rest)
+  return parts
+}
+
+function Statement({ sentence, highlights }) {
+  const parts = highlightSentence(sentence, highlights)
+  return (
+    <p className="about-statement">
+      {parts.map((part, i) =>
+        part.highlight ? (
+          <mark key={i} className="gradient-text about-statement__hl">
+            {part.text}
+          </mark>
+        ) : (
+          <span key={i}>{part}</span>
+        )
+      )}
+    </p>
+  )
+}
+
+function IdentityCard({ identity }) {
+  const rows = [
+    ['name', identity.name],
+    ['role', identity.role],
+    ['based', identity.based],
+    ['status', identity.status, true],
+  ]
+  return (
+    <TiltCard className="h-full">
+      <div className="about-identity">
+        <div className="about-identity__bar">
+          <span className="about-identity__bar-dot" style={{ background: 'var(--primary-start)' }} />
+          <span className="about-identity__bar-dot" style={{ background: 'var(--primary-end)' }} />
+          <span className="about-identity__bar-dot" style={{ background: 'var(--accent-start)' }} />
+          <span className="about-identity__bar-title">about — whoami</span>
+        </div>
+        <div className="about-identity__body">
+          <p className="about-identity__prompt">$ whoami</p>
+          <div className="about-identity__rows">
+            {rows.map(([key, value, isStatus]) => (
+              <div className="about-identity__row" key={key}>
+                <span className="about-identity__key">{key}</span>
+                <span className="about-identity__val">
+                  {isStatus && <span className="about-identity__dot" aria-hidden="true" />}
+                  {value}
+                </span>
+              </div>
+            ))}
+          </div>
+          <p className="about-identity__cursor" aria-hidden="true">
+            $ about — ready to build
+          </p>
+        </div>
+      </div>
+    </TiltCard>
+  )
+}
+
+function useCountUp(target, { duration = 1200, delay = 0 } = {}) {
+  const [value, setValue] = useState(0)
+  const ref = useRef(null)
+
+  useEffect(() => {
+    const el = ref.current
+    if (!el || typeof IntersectionObserver === 'undefined') {
+      setValue(target)
+      return () => {}
+    }
+
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      setValue(target)
+      return () => {}
+    }
+
+    let raf = 0
+    const io = new IntersectionObserver(([entry]) => {
+      if (!entry.isIntersecting) return
+      io.disconnect()
+      const start = performance.now() + delay
+      const tick = (now) => {
+        const t = Math.min((now - start) / duration, 1)
+        setValue(Math.round((1 - Math.pow(1 - t, 3)) * target))
+        if (t < 1) raf = requestAnimationFrame(tick)
+      }
+      raf = requestAnimationFrame(tick)
+    }, { threshold: 0.3 })
+
+    io.observe(el)
+    return () => {
+      io.disconnect()
+      cancelAnimationFrame(raf)
+    }
+  }, [target, duration, delay])
+
+  return [value, ref]
+}
+
+function StatItem({ stat }) {
+  const [value, ref] = useCountUp(stat.value)
+  return (
+    <div className="about-stat" ref={ref}>
+      <span className="about-stat__value">
+        {value}
+        {stat.suffix}
+      </span>
+      <span className="about-stat__label">{stat.label}</span>
+    </div>
   )
 }
 
@@ -168,26 +290,38 @@ export default function Home() {
       <section id="about" className="content-section">
         <AnimatedSection className="content-shell">
           <SectionLabel>{content.about.label}</SectionLabel>
-          <div className="mt-10 mb-12">
-            <p
-              className="text-2xl md:text-3xl font-light leading-snug max-w-2xl"
-              style={{ color: 'var(--text)', fontFamily: 'var(--font-display)' }}
-            >
-              {content.about.statement}
-            </p>
+
+          <div className="mt-10 mb-10 md:mb-14">
+            <Statement sentence={content.about.statement} highlights={content.about.statementHighlights} />
           </div>
-          <div className="grid md:grid-cols-2 gap-10 md:gap-16 mb-12">
-            <div className="space-y-4" style={{ color: 'var(--text-muted)' }}>
-              <p className="leading-relaxed">{content.about.detail1}</p>
-              <p className="leading-relaxed">{content.about.detail2}</p>
+
+          <div className="grid lg:grid-cols-[1.35fr_1fr] gap-10 lg:gap-14 items-start">
+            <div className="space-y-5" style={{ color: 'var(--text-muted)' }}>
+              <p className="about-detail">{content.about.detail1}</p>
+              <p className="about-detail">{content.about.detail2}</p>
+            </div>
+            <div className="lg:max-w-sm">
+              <IdentityCard identity={content.about.identity} />
             </div>
           </div>
+
+          <div className="about-stats mt-12 md:mt-16 mb-14">
+            {content.about.stats.map((stat) => (
+              <StatItem key={stat.label} stat={stat} />
+            ))}
+          </div>
+
           <div className="grid sm:grid-cols-3 gap-4">
-            {content.about.focusAreas.map((area) => (
-              <AnimatedSection key={area.title} delay={0.1}>
+            {content.about.focusAreas.map((area, i) => (
+              <AnimatedSection key={area.title} delay={0.1 + i * 0.1}>
                 <div className="focus-card h-full">
-                  <div className="focus-card-icon">
-                    <FocusAreaIcon type={area.icon} />
+                  <div className="flex items-start justify-between mb-4">
+                    <div className="focus-card-icon">
+                      <FocusAreaIcon type={area.icon} />
+                    </div>
+                    <span className="focus-card-index">
+                      {String(i + 1).padStart(2, '0')}
+                    </span>
                   </div>
                   <h3
                     className="text-sm font-semibold mb-2"
@@ -198,6 +332,7 @@ export default function Home() {
                   <p className="text-xs leading-relaxed" style={{ color: 'var(--text-muted)' }}>
                     {area.description}
                   </p>
+                  <span className="focus-card-line" aria-hidden="true" />
                 </div>
               </AnimatedSection>
             ))}

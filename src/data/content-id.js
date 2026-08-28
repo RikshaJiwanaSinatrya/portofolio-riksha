@@ -14,8 +14,20 @@ export default {
   about: {
     label: 'Tentang Saya',
     statement: 'Aku suka banget bikin interface yang cepat, accessible, dan enak dipandang.',
+    statementHighlights: ['cepat', 'accessible', 'enak dipandang'],
     detail1: 'Sekarang aku masih mahasiswa yang fokus di frontend development. Aku selalu perhatiin detail kecil di setiap project yang aku kerjain.',
     detail2: 'Yang lagi aku pelajari: design systems, motion design, dan batas antara estetika sama engineering.',
+    identity: {
+      name: 'Riksha Jiwana Sinatrya',
+      role: 'Mahasiswa · Frontend Developer',
+      based: 'Indonesia (UTC+7)',
+      status: 'Terbuka untuk kolaborasi',
+    },
+    stats: [
+      { value: 2, suffix: '+', label: 'Tahun berkarya' },
+      { value: 3, suffix: '', label: 'Fokus utama' },
+      { value: 100, suffix: '%', label: 'Rasa ingin tahu' },
+    ],
     focusAreas: [
       {
         title: 'Frontend Development',

@@ -14,8 +14,20 @@ export default {
   about: {
     label: 'About Me',
     statement: 'I love building interfaces that are fast, accessible, and visually pleasing.',
+    statementHighlights: ['fast', 'accessible', 'visually pleasing'],
     detail1: "I'm a student focused on frontend development with deep attention to visual craft and interaction design. Every project I work on gets the small-detail treatment.",
     detail2: "Currently learning: design systems, motion design, and the edge between aesthetics and engineering.",
+    identity: {
+      name: 'Riksha Jiwana Sinatrya',
+      role: 'Student · Frontend Developer',
+      based: 'Indonesia (UTC+7)',
+      status: 'Open to collaboration',
+    },
+    stats: [
+      { value: 2, suffix: '+', label: 'Years of crafting' },
+      { value: 3, suffix: '', label: 'Core focus areas' },
+      { value: 100, suffix: '%', label: 'Curiosity' },
+    ],
     focusAreas: [
       {
         title: 'Frontend Development',
