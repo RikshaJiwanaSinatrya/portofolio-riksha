@@ -11,3 +11,26 @@
   transform: scale(1);
   transform-origin: center top;
 }
+
+.lanyard-slot {
+  height: 780px;
+}
+
+@media (max-width: 1024px) {
+  .lanyard-slot {
+    height: 720px;
+  }
+}
+
+@media (max-width: 768px) {
+  .lanyard-slot {
+    height: 560px;
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .lanyard-slot {
+    height: 480px;
+  }
+}

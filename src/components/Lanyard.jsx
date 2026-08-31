@@ -20,6 +20,10 @@ const BLANK_PIXEL =
 const FRONT_UV_RECT = { x: 0, y: 0, w: 0.5, h: 0.755 };
 const BACK_UV_RECT = { x: 0.5, y: 0, w: 0.5, h: 0.757 };
 
+const CARD_WORLD_WIDTH = 0.7167;
+const CARD_WORLD_HEIGHT = 1.0;
+const UV_HALF = 0.5;
+
 export default function Lanyard({
   position = [0, 0, 30],
   gravity = [0, -40, 0],
@@ -133,19 +137,21 @@ function Band({
     ctx.drawImage(baseImg, 0, 0, W, H);
 
     const drawFitted = (img, rect) => {
-      const rx = rect.x * W;
-      const ry = rect.y * H;
       const rw = rect.w * W;
       const rh = rect.h * H;
+      const ku = CARD_WORLD_WIDTH / (UV_HALF * W);
+      const kv = CARD_WORLD_HEIGHT / (rect.h * H);
+      const Wr = rw * ku;
+      const Hr = rh * kv;
       const pick = imageFit === 'contain' ? Math.min : Math.max;
-      const scale = pick(rw / img.width, rh / img.height);
-      const dw = img.width * scale;
-      const dh = img.height * scale;
-      const dx = rx + (rw - dw) / 2;
-      const dy = ry + (rh - dh) / 2;
+      const s = pick(Wr / img.width, Hr / img.height);
+      const dw = (img.width * s) / ku;
+      const dh = (img.height * s) / kv;
+      const dx = rect.x * W + (rw - dw) / 2;
+      const dy = rect.y * H + (rh - dh) / 2;
       ctx.save();
       ctx.beginPath();
-      ctx.rect(rx, ry, rw, rh);
+      ctx.rect(rect.x * W, rect.y * H, rw, rh);
       ctx.clip();
       ctx.drawImage(img, dx, dy, dw, dh);
       ctx.restore();

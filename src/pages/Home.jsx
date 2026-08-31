@@ -8,7 +8,6 @@ import TiltCard from '../components/TiltCard'
 import SpecularButton from '../components/SpecularButton'
 import Footer from '../components/Footer'
 import Lanyard from '../components/Lanyard'
-import CircularText from '../components/CircularText'
 import TextLoop from '../components/TextLoop'
 
 function FocusAreaIcon({ type }) {
@@ -251,15 +250,7 @@ export default function Home() {
               </div>
             </div>
           </AnimatedSection>
-          <div className="hidden md:block h-[750px] relative">
-            <div className="absolute top-0 right-0 z-10">
-              <CircularText
-                text="FRONTEND*DEVELOPER*"
-                onHover="speedUp"
-                spinDuration={20}
-                className=""
-              />
-            </div>
+          <div className="lanyard-slot relative">
             <Lanyard position={[0, 0, 13]} gravity={[0, -40, 0]} frontImage="/card-front.svg" backImage="/card-back.svg" />
           </div>
         </div>
