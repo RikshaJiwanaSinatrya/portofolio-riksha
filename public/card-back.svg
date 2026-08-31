@@ -18,37 +18,37 @@
   <circle cx="120" cy="750" r="180" fill="#764ba2" opacity="0.06"/>
 
   <!-- Top monogram -->
-  <text x="300" y="170" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="22" font-weight="800" letter-spacing="8" fill="#667eea">RIKSHA</text>
+  <text x="300" y="240" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="22" font-weight="800" letter-spacing="8" fill="#667eea">RIKSHA</text>
 
   <!-- Accent divider -->
-  <rect x="265" y="200" width="70" height="4" rx="2" fill="url(#accent)"/>
+  <rect x="265" y="270" width="70" height="4" rx="2" fill="url(#accent)"/>
 
   <!-- Section label -->
-  <text x="300" y="320" text-anchor="middle" font-family="ui-monospace, 'JetBrains Mono', monospace, monospace" font-size="13" font-weight="600" letter-spacing="6" fill="#8f9bff">GET IN TOUCH</text>
+  <text x="300" y="390" text-anchor="middle" font-family="ui-monospace, 'JetBrains Mono', monospace, monospace" font-size="13" font-weight="600" letter-spacing="6" fill="#8f9bff">GET IN TOUCH</text>
 
   <!-- Contact rows -->
   <g font-family="ui-monospace, 'JetBrains Mono', monospace, monospace">
     <!-- github -->
-    <circle cx="200" cy="430" r="5" fill="url(#accent)"/>
-    <text x="228" y="436" font-size="12" letter-spacing="3" fill="#6b6b80">GITHUB</text>
-    <text x="200" y="486" font-size="22" letter-spacing="1" fill="#e6e6f0">github.com/riksha</text>
+    <circle cx="200" cy="500" r="5" fill="url(#accent)"/>
+    <text x="228" y="506" font-size="12" letter-spacing="3" fill="#6b6b80">GITHUB</text>
+    <text x="200" y="556" font-size="22" letter-spacing="1" fill="#e6e6f0">github.com/riksha</text>
 
-    <rect x="180" y="512" width="240" height="1" fill="rgba(255,255,255,0.07)"/>
+    <rect x="180" y="582" width="240" height="1" fill="rgba(255,255,255,0.07)"/>
 
     <!-- linkedin -->
-    <circle cx="200" cy="572" r="5" fill="url(#accent)"/>
-    <text x="228" y="578" font-size="12" letter-spacing="3" fill="#6b6b80">LINKEDIN</text>
-    <text x="200" y="628" font-size="22" letter-spacing="1" fill="#e6e6f0">linkedin.com/in/riksha</text>
+    <circle cx="200" cy="642" r="5" fill="url(#accent)"/>
+    <text x="228" y="648" font-size="12" letter-spacing="3" fill="#6b6b80">LINKEDIN</text>
+    <text x="200" y="698" font-size="22" letter-spacing="1" fill="#e6e6f0">linkedin.com/in/riksha</text>
 
-    <rect x="180" y="654" width="240" height="1" fill="rgba(255,255,255,0.07)"/>
+    <rect x="180" y="724" width="240" height="1" fill="rgba(255,255,255,0.07)"/>
 
     <!-- location -->
-    <circle cx="200" cy="714" r="5" fill="url(#accent)"/>
-    <text x="228" y="720" font-size="12" letter-spacing="3" fill="#6b6b80">BASED IN</text>
-    <text x="200" y="770" font-size="22" letter-spacing="1" fill="#e6e6f0">Indonesia · UTC+7</text>
+    <circle cx="200" cy="784" r="5" fill="url(#accent)"/>
+    <text x="228" y="790" font-size="12" letter-spacing="3" fill="#6b6b80">BASED IN</text>
+    <text x="200" y="840" font-size="22" letter-spacing="1" fill="#e6e6f0">Indonesia · UTC+7</text>
   </g>
 
   <!-- Bottom footer -->
-  <rect x="220" y="818" width="160" height="3" rx="1.5" fill="url(#accent)"/>
-  <text x="300" y="856" text-anchor="middle" font-family="ui-monospace, 'JetBrains Mono', monospace, monospace" font-size="13" letter-spacing="4" fill="#555577">RIKSHA © 2026</text>
+  <rect x="220" y="868" width="160" height="3" rx="1.5" fill="url(#accent)"/>
+  <text x="300" y="886" text-anchor="middle" font-family="ui-monospace, 'JetBrains Mono', monospace, monospace" font-size="12" letter-spacing="4" fill="#555577">RIKSHA © 2026</text>
 </svg>
