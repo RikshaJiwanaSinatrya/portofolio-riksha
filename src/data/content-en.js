@@ -82,6 +82,8 @@ export default {
   },
   projects: {
     label: 'Projects',
+    intro: 'Projects born from curiosity.',
+    cta: 'Read the case study',
     items: [
       {
         name: 'Project Alpha',

@@ -42,7 +42,7 @@ export default function TiltCard({ children, className = '' }) {
       onMouseLeave={handleMouseLeave}
     >
       <div
-        className="relative rounded-2xl overflow-hidden transition-shadow duration-300"
+        className="relative rounded-2xl overflow-hidden transition-shadow duration-300 h-full"
         style={{
           background: 'var(--surface)',
           backdropFilter: 'blur(12px)',

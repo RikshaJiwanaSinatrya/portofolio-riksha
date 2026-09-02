@@ -82,6 +82,8 @@ export default {
   },
   projects: {
     label: 'Project',
+    intro: 'Karya yang lahir dari rasa penasaran.',
+    cta: 'Baca studi kasus',
     items: [
       {
         name: 'Project Alpha',

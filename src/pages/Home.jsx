@@ -256,6 +256,59 @@ function CategoryCard({ category, index, unit }) {
   )
 }
 
+function ProjectCard({ project, index, featured, cta }) {
+  return (
+    <TiltCard className="h-full">
+      <article className="project-card h-full">
+        <div className="project-card__bar">
+          <span className="project-card__dot" style={{ background: 'var(--primary-start)' }} />
+          <span className="project-card__dot" style={{ background: 'var(--primary-end)' }} />
+          <span className="project-card__dot" style={{ background: 'var(--accent-start)' }} />
+          <span className="project-card__bar-title">repo — {project.slug}</span>
+        </div>
+        {featured && (
+          <div className="project-card__cover" aria-hidden="true">
+            <span className="project-card__cover-num">/{String(index + 1).padStart(2, '0')}</span>
+            <span className="project-card__cover-mono">featured_case</span>
+          </div>
+        )}
+        <div className="project-card__body">
+          <div className="project-card__head">
+            <span className="project-card__index">/{String(index + 1).padStart(2, '0')}</span>
+            {featured && <span className="project-card__featured">featured</span>}
+          </div>
+          <h3 className="project-card__title">{project.name}</h3>
+          <p className="project-card__desc">{project.description}</p>
+          <div className="project-card__tags">
+            {project.tags.map((tag) => (
+              <span key={tag} className="project-card__tag">
+                {tag}
+              </span>
+            ))}
+          </div>
+        </div>
+        <div className="project-card__footer">
+          <span className="project-card__cta">{cta}</span>
+          <svg
+            className="project-card__cta-arrow"
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <path d="M5 12h14" />
+            <polyline points="12 5 19 12 12 19" />
+          </svg>
+        </div>
+      </article>
+    </TiltCard>
+  )
+}
+
 export default function Home() {
   const { language } = useLanguage()
   const content = language === 'id' ? contentId : contentEn
@@ -450,59 +503,23 @@ export default function Home() {
       {/* Projects */}
       <section id="projects" className="content-section">
         <AnimatedSection className="content-shell">
-          <SectionLabel>{content.projects.label}</SectionLabel>
-          <div className="grid md:grid-cols-2 gap-5 md:gap-6 mt-10">
+          <div className="flex flex-wrap items-end justify-between gap-4 mb-10">
+            <SectionLabel>{content.projects.label}</SectionLabel>
+            <p className="skill-section-intro">{content.projects.intro}</p>
+          </div>
+          <div className="grid md:grid-cols-2 gap-5 md:gap-6">
             {content.projects.items.map((project, i) => (
               <div
                 key={project.slug}
                 className={i === 0 ? 'md:row-span-2' : ''}
               >
                 <a href={`/blog/${project.slug}`} className="block h-full">
-                  <TiltCard className="h-full">
-                    <div className="p-6 md:p-8 flex flex-col h-full min-h-[200px]">
-                      <div className="flex items-center gap-2 mb-3">
-                        <span
-                          className="text-[10px] font-medium px-2 py-0.5 rounded-full"
-                          style={{
-                            fontFamily: 'var(--font-mono)',
-                            color: 'var(--primary-start)',
-                            background: 'color-mix(in srgb, var(--primary-start) 10%, transparent)',
-                            border: '1px solid color-mix(in srgb, var(--primary-start) 20%, transparent)',
-                          }}
-                        >
-                          {String(i + 1).padStart(2, '0')}
-                        </span>
-                      </div>
-                      <h3
-                        className="text-lg font-semibold mb-2"
-                        style={{ color: 'var(--text)', fontFamily: 'var(--font-display)' }}
-                      >
-                        {project.name}
-                      </h3>
-                      <p
-                        className="text-sm leading-relaxed mb-4 flex-1"
-                        style={{ color: 'var(--text-muted)' }}
-                      >
-                        {project.description}
-                      </p>
-                      <div className="flex flex-wrap gap-2">
-                        {project.tags.map((tag) => (
-                          <span
-                            key={tag}
-                            className="text-[11px] px-2.5 py-1 rounded-full font-medium"
-                            style={{
-                              fontFamily: 'var(--font-mono)',
-                              color: 'var(--primary-start)',
-                              background: 'var(--surface)',
-                              border: '1px solid var(--border)',
-                            }}
-                          >
-                            {tag}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-                  </TiltCard>
+                  <ProjectCard
+                    project={project}
+                    index={i}
+                    featured={i === 0}
+                    cta={content.projects.cta}
+                  />
                 </a>
               </div>
             ))}
