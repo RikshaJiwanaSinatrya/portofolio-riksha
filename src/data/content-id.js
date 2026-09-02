@@ -114,6 +114,14 @@ export default {
     email: 'hello@riksha.dev',
     github: 'GitHub',
     linkedin: 'LinkedIn',
+    form: {
+      name: 'Nama',
+      email: 'Email',
+      message: 'Pesan',
+      send: 'Kirim Pesan',
+      subject: 'Pesan dari portfolio',
+      placeholder: 'Ceritain project atau idemu di sini...',
+    },
   },
   footer: {
     copyright: '\u00a9 2026 Riksha. Dibuat dengan React.',

@@ -114,6 +114,14 @@ export default {
     email: 'hello@riksha.dev',
     github: 'GitHub',
     linkedin: 'LinkedIn',
+    form: {
+      name: 'Name',
+      email: 'Email',
+      message: 'Message',
+      send: 'Send Message',
+      subject: 'Portfolio inquiry from',
+      placeholder: 'Tell me about your project or idea...',
+    },
   },
   footer: {
     copyright: '\u00a9 2026 Riksha. Built with React.',
