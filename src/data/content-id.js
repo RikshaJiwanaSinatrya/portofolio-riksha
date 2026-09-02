@@ -107,6 +107,8 @@ export default {
   },
   contact: {
     label: 'Kontak',
+    intro: 'Boleh banget ngobrol santai.',
+    prompt: 'kirim_pesan --mulai',
     headline: 'Ada yang mau dibicarakan? Yuk ngobrol.',
     description: 'Aku selalu terbuka untuk diskusi project baru, ide kreatif, atau kesempatan untuk jadi bagian dari visi kamu.',
     email: 'hello@riksha.dev',

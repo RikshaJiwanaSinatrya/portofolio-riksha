@@ -532,69 +532,95 @@ export default function Home() {
       {/* Contact */}
       <section id="contact" className="content-section">
         <AnimatedSection className="content-shell">
-          <div className="contact-wrapper">
+          <div className="flex flex-wrap items-end justify-between gap-4 mb-10">
             <SectionLabel>{content.contact.label}</SectionLabel>
-            <p
-              className="text-2xl md:text-3xl font-light mb-4 max-w-md mt-8"
-              style={{ color: 'var(--text)', fontFamily: 'var(--font-display)' }}
-            >
-              {content.contact.headline}
-            </p>
-            <p
-              className="text-sm leading-relaxed mb-8 max-w-md"
-              style={{ color: 'var(--text-muted)' }}
-            >
-              {content.contact.description}
-            </p>
-            <div className="flex flex-wrap items-center gap-4">
-              <a href={`mailto:${content.contact.email}`}>
-                <SpecularButton
-                  size="md"
-                  radius={18}
-                  textColor="var(--text)"
-                  lineColor="var(--text)"
-                  baseColor="var(--border)"
-                  intensity={0.8}
-                  shineSize={10}
-                  shineFade={40}
-                  thickness={1}
-                  speed={0.35}
-                  followMouse
-                  proximity={250}
+            <p className="skill-section-intro">{content.contact.intro}</p>
+          </div>
+          <div className="contact-wrapper">
+            <div className="contact-bar">
+              <span className="contact-bar__dot" style={{ background: 'var(--primary-start)' }} />
+              <span className="contact-bar__dot" style={{ background: 'var(--primary-end)' }} />
+              <span className="contact-bar__dot" style={{ background: 'var(--accent-start)' }} />
+              <span className="contact-bar__title">contact — reach_out</span>
+            </div>
+            <div className="contact-body">
+              <div className="contact-meta">
+                <span className="contact-meta__item">
+                  <span className="about-identity__dot" aria-hidden="true" />
+                  {content.about.identity.status}
+                </span>
+                <span className="contact-meta__item">location — {content.about.identity.based}</span>
+              </div>
+
+              <p className="contact-prompt">$ {content.contact.prompt}</p>
+              <h2
+                className="contact-headline"
+                style={{ color: 'var(--text)', fontFamily: 'var(--font-display)' }}
+              >
+                {content.contact.headline}
+              </h2>
+              <p className="contact-desc">{content.contact.description}</p>
+
+              <a href={`mailto:${content.contact.email}`} className="contact-email">
+                <span className="contact-email__icon" aria-hidden="true">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                    <rect x="2" y="4" width="20" height="16" rx="2" />
+                    <path d="m22 7-10 6L2 7" />
+                  </svg>
+                </span>
+                <span className="contact-email__label">{content.contact.email}</span>
+                <svg
+                  className="contact-email__arrow"
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
                 >
-                  {content.contact.email}
-                </SpecularButton>
+                  <path d="M5 12h14" />
+                  <polyline points="12 5 19 12 12 19" />
+                </svg>
               </a>
-              <div className="flex gap-5 text-sm" style={{ color: 'var(--text-muted)' }}>
+
+              <div className="contact-links">
                 <a
                   href="https://github.com/riksha"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="transition-colors duration-200 inline-flex items-center gap-1.5"
-                  style={{ color: 'inherit' }}
-                  onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--text)')}
-                  onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--text-muted)')}
+                  className="contact-link"
                 >
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" />
+                  <span className="contact-link__label">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" />
+                    </svg>
+                    {content.contact.github}
+                  </span>
+                  <svg className="contact-link__arrow" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M7 17 17 7" />
+                    <path d="M8 7h9v9" />
                   </svg>
-                  {content.contact.github}
                 </a>
                 <a
                   href="https://linkedin.com/in/riksha"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="transition-colors duration-200 inline-flex items-center gap-1.5"
-                  style={{ color: 'inherit' }}
-                  onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--text)')}
-                  onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--text-muted)')}
+                  className="contact-link"
                 >
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
-                    <rect x="2" y="9" width="4" height="12" />
-                    <circle cx="4" cy="4" r="2" />
+                  <span className="contact-link__label">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
+                      <rect x="2" y="9" width="4" height="12" />
+                      <circle cx="4" cy="4" r="2" />
+                    </svg>
+                    {content.contact.linkedin}
+                  </span>
+                  <svg className="contact-link__arrow" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M7 17 17 7" />
+                    <path d="M8 7h9v9" />
                   </svg>
-                  {content.contact.linkedin}
                 </a>
               </div>
             </div>
