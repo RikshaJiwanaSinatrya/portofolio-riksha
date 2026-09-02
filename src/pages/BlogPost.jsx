@@ -17,6 +17,10 @@ function getPost(slug) {
   return posts[slug] || null
 }
 
+function stripFrontmatter(markdown) {
+  return markdown.replace(/^---[\s\S]*?---\s*/, '').trim()
+}
+
 function estimateReadingTime(text) {
   const words = text.split(/\s+/).length
   const minutes = Math.ceil(words / 200)
@@ -97,7 +101,7 @@ export default function BlogPost() {
           </h1>
           <div className="flex flex-wrap items-center gap-3 text-sm" style={{ color: 'var(--text-muted)' }}>
             <span style={{ fontFamily: 'var(--font-mono)' }}>
-              {estimateReadingTime(markdown || '')} min read
+              {estimateReadingTime(stripFrontmatter(markdown || ''))} min read
             </span>
             <span>·</span>
             <div className="flex flex-wrap gap-2">
@@ -133,7 +137,7 @@ export default function BlogPost() {
       ) : (
         <article className="prose">
           <ReactMarkdown remarkPlugins={[remarkGfm]}>
-            {markdown}
+            {stripFrontmatter(markdown)}
           </ReactMarkdown>
         </article>
       )}
