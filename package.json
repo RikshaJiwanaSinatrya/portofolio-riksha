@@ -7,7 +7,7 @@
     "dev": "vite",
     "lint": "oxlint",
     "preview": "vite preview",
-    "build": "vite build --output public"
+    "build": "vite build"
   },
   "dependencies": {
     "@react-three/drei": "^10.7.8",
