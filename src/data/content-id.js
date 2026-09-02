@@ -15,6 +15,7 @@ export default {
     label: 'Tentang Saya',
     statement: 'Aku suka banget bikin interface yang cepat, accessible, dan enak dipandang.',
     statementHighlights: ['cepat', 'accessible', 'enak dipandang'],
+    statementEyebrow: 'Kenapa aku ngoding',
     detail1: 'Sekarang aku masih mahasiswa yang fokus di frontend development. Aku selalu perhatiin detail kecil di setiap project yang aku kerjain.',
     detail2: 'Yang lagi aku pelajari: design systems, motion design, dan batas antara estetika sama engineering.',
     identity: {

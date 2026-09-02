@@ -63,20 +63,26 @@ function highlightSentence(sentence, highlights = []) {
   return parts
 }
 
-function Statement({ sentence, highlights }) {
+function Statement({ sentence, highlights, eyebrow }) {
   const parts = highlightSentence(sentence, highlights)
   return (
-    <p className="about-statement">
-      {parts.map((part, i) =>
-        part.highlight ? (
-          <mark key={i} className="gradient-text about-statement__hl">
-            {part.text}
-          </mark>
-        ) : (
-          <span key={i}>{part}</span>
-        )
-      )}
-    </p>
+    <div className="about-statement-wrap">
+      <div className="about-statement-eyebrow">
+        <span className="about-statement-eyebrow__rule" aria-hidden="true" />
+        <span>{eyebrow}</span>
+      </div>
+      <p className="about-statement">
+        {parts.map((part, i) =>
+          part.highlight ? (
+            <mark key={i} className="gradient-text about-statement__hl">
+              {part.text}
+            </mark>
+          ) : (
+            <span key={i}>{part}</span>
+          )
+        )}
+      </p>
+    </div>
   )
 }
 
@@ -97,11 +103,15 @@ function IdentityCard({ identity }) {
           <span className="about-identity__bar-title">about — whoami</span>
         </div>
         <div className="about-identity__body">
-          <p className="about-identity__prompt">$ whoami</p>
+          <div className="about-identity__head">
+            <p className="about-identity__prompt">$ whoami</p>
+            <span className="about-identity__uptime" aria-hidden="true">◆ active</span>
+          </div>
           <div className="about-identity__rows">
             {rows.map(([key, value, isStatus]) => (
               <div className="about-identity__row" key={key}>
                 <span className="about-identity__key">{key}</span>
+                <span className="about-identity__float">=&gt;</span>
                 <span className="about-identity__val">
                   {isStatus && <span className="about-identity__dot" aria-hidden="true" />}
                   {value}
@@ -282,12 +292,16 @@ export default function Home() {
         <AnimatedSection className="content-shell">
           <SectionLabel>{content.about.label}</SectionLabel>
 
-          <div className="mt-10 mb-10 md:mb-14">
-            <Statement sentence={content.about.statement} highlights={content.about.statementHighlights} />
+          <div className="about-statement-holder mt-10 mb-10 md:mb-14">
+            <Statement
+              sentence={content.about.statement}
+              highlights={content.about.statementHighlights}
+              eyebrow={content.about.statementEyebrow}
+            />
           </div>
 
           <div className="grid lg:grid-cols-[1.35fr_1fr] gap-10 lg:gap-14 items-start">
-            <div className="space-y-5" style={{ color: 'var(--text-muted)' }}>
+            <div className="about-bio">
               <p className="about-detail">{content.about.detail1}</p>
               <p className="about-detail">{content.about.detail2}</p>
             </div>
@@ -306,6 +320,7 @@ export default function Home() {
             {content.about.focusAreas.map((area, i) => (
               <AnimatedSection key={area.title} delay={0.1 + i * 0.1}>
                 <div className="focus-card h-full">
+                  <span className="focus-card-accent" aria-hidden="true" />
                   <div className="flex items-start justify-between mb-4">
                     <div className="focus-card-icon">
                       <FocusAreaIcon type={area.icon} />

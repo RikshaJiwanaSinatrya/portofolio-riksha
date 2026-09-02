@@ -15,6 +15,7 @@ export default {
     label: 'About Me',
     statement: 'I love building interfaces that are fast, accessible, and visually pleasing.',
     statementHighlights: ['fast', 'accessible', 'visually pleasing'],
+    statementEyebrow: 'Why I code',
     detail1: "I'm a student focused on frontend development with deep attention to visual craft and interaction design. Every project I work on gets the small-detail treatment.",
     detail2: "Currently learning: design systems, motion design, and the edge between aesthetics and engineering.",
     identity: {
