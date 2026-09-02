@@ -180,6 +180,82 @@ function StatItem({ stat }) {
   )
 }
 
+function useOnScreen(threshold = 0.4) {
+  const ref = useRef(null)
+  const [visible, setVisible] = useState(false)
+
+  useEffect(() => {
+    const el = ref.current
+    if (!el || typeof IntersectionObserver === 'undefined') {
+      setVisible(true)
+      return () => {}
+    }
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      setVisible(true)
+      return () => {}
+    }
+    const io = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) {
+        setVisible(true)
+        io.disconnect()
+      }
+    }, { threshold })
+    io.observe(el)
+    return () => io.disconnect()
+  }, [threshold])
+
+  return [visible, ref]
+}
+
+function SkillBar({ skill, unit, delay = 0 }) {
+  const [visible, ref] = useOnScreen(0.5)
+  return (
+    <div className="skill-row" ref={ref}>
+      <div className="flex items-center justify-between mb-1.5">
+        <span className="skill-row__name" style={{ color: 'var(--text)' }}>
+          {skill.name}
+        </span>
+        <span className="skill-row__level">
+          {skill.level}
+          {unit}
+        </span>
+      </div>
+      <div className="skill-bar-track">
+        <div
+          className="skill-bar-fill"
+          style={{
+            width: visible ? `${skill.level}%` : 0,
+            transitionDelay: visible ? `${delay}ms` : '0ms',
+          }}
+        />
+      </div>
+    </div>
+  )
+}
+
+function CategoryCard({ category, index, unit }) {
+  return (
+    <div className="skill-category h-full">
+      <div className="skill-category__meta">
+        <span className="skill-category__index">{String(index + 1).padStart(2, '0')}</span>
+      </div>
+      <h3
+        className="skill-category__title"
+        style={{ color: 'var(--text)', fontFamily: 'var(--font-display)' }}
+      >
+        {category.name}
+      </h3>
+      <div className="skill-category__divider" aria-hidden="true" />
+      <div className="skill-category__items">
+        {category.items.map((skill, skillIdx) => (
+          <SkillBar key={skill.name} skill={skill} unit="%" delay={skillIdx * 110} />
+        ))}
+      </div>
+      <span className="skill-category__accent" aria-hidden="true" />
+    </div>
+  )
+}
+
 export default function Home() {
   const { language } = useLanguage()
   const content = language === 'id' ? contentId : contentEn
@@ -351,41 +427,18 @@ export default function Home() {
       {/* Skills */}
       <section className="content-section">
         <AnimatedSection className="content-shell">
-          <SectionLabel>{content.skills.label}</SectionLabel>
-          <div className="grid sm:grid-cols-3 gap-5 mt-10">
+          <div className="flex flex-wrap items-end justify-between gap-4 mb-10">
+            <SectionLabel>{content.skills.label}</SectionLabel>
+            <p className="skill-section-intro">{content.skills.intro}</p>
+          </div>
+          <div className="grid sm:grid-cols-3 gap-5">
             {content.skills.categories.map((category, catIdx) => (
-              <AnimatedSection key={category.name} delay={catIdx * 0.1}>
-                <div className="skill-category h-full">
-                  <h3
-                    className="text-sm font-semibold mb-5"
-                    style={{ color: 'var(--text)', fontFamily: 'var(--font-display)' }}
-                  >
-                    {category.name}
-                  </h3>
-                  <div className="space-y-4">
-                    {category.items.map((skill) => (
-                      <div key={skill.name}>
-                        <div className="flex items-center justify-between mb-1">
-                          <span className="text-xs font-medium" style={{ color: 'var(--text)' }}>
-                            {skill.name}
-                          </span>
-                          <span
-                            className="text-[10px] tabular-nums"
-                            style={{ color: 'var(--text-muted)', fontFamily: 'var(--font-mono)' }}
-                          >
-                            {skill.level}%
-                          </span>
-                        </div>
-                        <div className="skill-bar-track">
-                          <div
-                            className="skill-bar-fill"
-                            style={{ width: `${skill.level}%` }}
-                          />
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
+              <AnimatedSection key={category.name} delay={catIdx * 0.1} className="h-full">
+                <CategoryCard
+                  category={category}
+                  index={catIdx}
+                  unit={content.skills.unit}
+                />
               </AnimatedSection>
             ))}
           </div>

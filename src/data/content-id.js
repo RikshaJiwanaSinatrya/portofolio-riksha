@@ -49,6 +49,8 @@ export default {
   },
   skills: {
     label: 'Keahlian',
+    intro: 'Teknologi yang aku pakai buat bikin karya.',
+    unit: 'skill',
     categories: [
       {
         name: 'Frontend',

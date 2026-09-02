@@ -49,6 +49,8 @@ export default {
   },
   skills: {
     label: 'Skills',
+    intro: 'The technology I use to build.',
+    unit: 'skills',
     categories: [
       {
         name: 'Frontend',
