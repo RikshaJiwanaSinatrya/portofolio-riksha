@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom'
 import { AnimatePresence, motion } from 'framer-motion'
 import { ThemeProvider } from './context/ThemeContext'
@@ -8,6 +8,7 @@ import Sidebar from './components/Sidebar'
 import FloatingToggles from './components/FloatingToggles'
 import GradientMesh from './components/GradientMesh'
 import BackToTop from './components/BackToTop'
+import ErrorBoundary from './components/ErrorBoundary'
 import Home from './pages/Home'
 import BlogPost from './pages/BlogPost'
 import NotFound from './pages/NotFound'
@@ -38,20 +39,33 @@ export default function App() {
   const [menuOpen, setMenuOpen] = useState(true)
   const [loading, setLoading] = useState(true)
 
+  useEffect(() => {
+    const t = setTimeout(() => setLoading(false), 6000)
+    return () => clearTimeout(t)
+  }, [])
+
   return (
     <ThemeProvider>
       <LanguageProvider>
         <BrowserRouter>
-          <AnimatePresence mode="wait">
-            {loading && <Preloader onComplete={() => setLoading(false)} />}
-          </AnimatePresence>
-          <GradientMesh />
-          <Sidebar onMenuOpen={() => setMenuOpen(true)} onMenuClose={() => setMenuOpen(false)} />
-          <FloatingToggles />
-          <BackToTop />
-          <main className={`app-main${menuOpen ? ' menu-open' : ''}`}>
-            <AnimatedRoutes />
-          </main>
+          <ErrorBoundary
+            fallback={
+              <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '2rem', color: 'var(--text)' }}>
+                <p>Something went wrong while loading the page. Please refresh.</p>
+              </div>
+            }
+          >
+            <AnimatePresence mode="wait">
+              {loading && <Preloader onComplete={() => setLoading(false)} />}
+            </AnimatePresence>
+            <GradientMesh />
+            <Sidebar onMenuOpen={() => setMenuOpen(true)} onMenuClose={() => setMenuOpen(false)} />
+            <FloatingToggles />
+            <BackToTop />
+            <main className={`app-main${menuOpen ? ' menu-open' : ''}`}>
+              <AnimatedRoutes />
+            </main>
+          </ErrorBoundary>
         </BrowserRouter>
       </LanguageProvider>
     </ThemeProvider>

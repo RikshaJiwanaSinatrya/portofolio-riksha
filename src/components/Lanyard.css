@@ -12,6 +12,15 @@
   transform-origin: center top;
 }
 
+.lanyard-fallback {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0.35;
+}
+
 .lanyard-slot {
   height: 780px;
 }

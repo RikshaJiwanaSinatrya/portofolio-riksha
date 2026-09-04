@@ -11,8 +11,20 @@ import lanyard from '../assets/lanyard/lanyard.png';
 
 import * as THREE from 'three';
 import './Lanyard.css';
+import { webglSupported } from '../utils/webgl';
 
 extend({ MeshLineGeometry, MeshLineMaterial });
+
+function LanyardFallback() {
+  return (
+    <div className="lanyard-fallback" aria-hidden="true">
+      <svg width="120" height="120" viewBox="0 0 100 100" fill="none" stroke="var(--primary-start)" strokeWidth="2">
+        <rect x="15" y="38" width="70" height="46" rx="8" />
+        <path d="M32 38l18-16 18 16" fill="none" />
+      </svg>
+    </div>
+  )
+}
 
 const BLANK_PIXEL =
   'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==';
@@ -42,6 +54,10 @@ export default function Lanyard({
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
+
+  if (!webglSupported()) {
+    return <LanyardFallback />;
+  }
 
   return (
     <div className="lanyard-wrapper">
